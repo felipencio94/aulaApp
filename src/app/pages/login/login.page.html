@@ -1,0 +1,47 @@
+
+<ion-header>
+  <ion-toolbar >
+    <ion-title style="text-align: center;">Acceder</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="ion-margin">
+    <ion-card-header>
+    <ion-card-title style="text-align: center;">Bienvenid@ a Aulapp</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item class="ion-margin">
+        <ion-label position="floating">Usuario (Run sin punto ni guión)</ion-label>
+        <ion-input [(ngModel)]="modeloUsuario"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin">
+        <ion-label position="floating" >Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="modeloContrasena"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin">
+        <ion-label>Recordar Usuario</ion-label>
+        <ion-checkbox slot="end" value="Recordar usuario"></ion-checkbox>
+      </ion-item>      
+    </ion-card-content>
+
+  </ion-card>
+
+  <a href="" class="ion-margin" style="display: flex; justify-content: center;">Recuperar usuario/contraseña</a>
+  <ion-button expand="full" shape="round" size="large" class="ion-margin" (click)="validarLogin()">Ingresar</ion-button>
+  
+  <ion-button (click)="mostrarInfoButton()">prueba lista api</ion-button>
+  <ion-list lines="full" class="ion-margin" *ngIf="mostrarInfo">
+    <ion-item *ngFor="let x of listaUsuarios" detail>
+      <ion-card-header>
+        <ion-card-title>Rut: {{x.RUN}}</ion-card-title>
+        <ion-card-title>Codigo Usuario: {{x.COD_USUARIO}}</ion-card-title>
+        <ion-card-title>Email: {{x.MAIL}}</ion-card-title>
+      </ion-card-header>
+    </ion-item>
+  </ion-list>
+
+  
+</ion-content>

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Horario Cursos</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="alarm" size="large"></ion-icon>
+    </ion-thumbnail>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-text-center">
+
+    <ion-row class="ion-margin">
+      <ion-col>
+        <ion-title>
+          <ion-text color="default">
+            Horario del curso
+          </ion-text>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="header-row">
+      <ion-col>
+        <ion-text>Asignatura</ion-text>
+      </ion-col>
+
+
+      <ion-col>
+        <ion-text>Horario</ion-text>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-text>
+            Lenguaje
+        </ion-text>
+      </ion-col>
+  
+        <ion-col>
+          <ion-text class="ionic-margin">
+            Lunes 08:00 - 09:30
+            <br>
+            Miércoles 10:35 - 11:15
+            <br>
+            Jueves 08:00 - 08:40
+          </ion-text>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-text>
+            Matemática
+        </ion-text>
+      </ion-col>
+  
+        <ion-col>
+          <ion-text class="ionic-margin">
+            Martes 08:00 - 09:30
+            <br>
+            Viernes 10:35 - 11:15
+            <br>
+            Jueves 12:00 - 12:40
+          </ion-text>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-text>
+            Biología
+        </ion-text>
+      </ion-col>
+  
+        <ion-col>
+          <ion-text class="ionic-margin">
+            Lunes 12:00 - 13:30
+            <br>
+            Miércoles 11:35 - 12:15
+            <br>
+            Viernes 10:35 - 11:15
+          </ion-text>
+        </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-button expand="block" shape="round" strong="true" class="ion-margin" routerLink="/inicio/horarios">Aceptar</ion-button>
+
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Notas</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="stats-chart" size="large"></ion-icon>
+    </ion-thumbnail>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item class="ion-margin">
+      <ion-label>Nivel</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
+      <ion-button (click)="mostrarPickerNivel()">Seleccionar</ion-button>
+    </ion-item>
+    
+    <ion-item class="ion-margin">
+      <ion-label>Curso</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
+      <ion-button (click)="mostrarPickerCurso()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-item class="ion-margin">
+      <ion-label>Alumno</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoAlum}}</ion-text>
+      <ion-button (click)="mostrarPickerAlumno()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-item class="ion-margin">
+      <ion-label>Asignatura</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoAsignatura}}</ion-text>
+      <ion-button (click)="mostrarPickerAsignatura()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-item class="ion-margin">
+      <ion-label>Periodo</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoPeriodo}}</ion-text>
+      <ion-button (click)="mostrarPickerPeriodo()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-button expand="full" shape="round" class="ion-margin" strong="true" routerLink="/inicio/notas/mostrar-notas">Ver notas</ion-button>
+  </ion-card>
+</ion-content>

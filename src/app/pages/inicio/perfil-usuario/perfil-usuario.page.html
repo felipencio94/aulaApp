@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil del usuario</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="person-circle-outline" size="large"></ion-icon>
+    </ion-thumbnail>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="header">
+    <h2 *ngFor="let x of listaUsuarios">{{x.COD_USUARIO}}</h2>
+  </div>
+  <div class="img-centro">
+    <div class="borde-verde">
+      <div class="borde-blanco">
+        <div class="imagen-circular">
+          <img src="https://thumbs.dreamstime.com/b/icono-de-usuario-del-hombre-negocios-vector-personas-en-estilo-plano-moderno-aislado-fondo-gris-s%C3%ADmbolo-silueta-para-el-dise%C3%B1o-163924886.jpg">
+        </div>    
+      </div>
+    </div>
+  </div>
+
+  <ion-card>
+    <ion-item>
+      Modificar Contraseña
+    </ion-item>
+
+    <ion-item>
+      Modificar imagen de perfil
+    </ion-item>
+
+    <ion-item>
+      Sobre AulaApp
+    </ion-item>
+
+    <ion-item color="danger">
+      Cerrar sesión
+    </ion-item>
+
+  </ion-card>
+</ion-content>

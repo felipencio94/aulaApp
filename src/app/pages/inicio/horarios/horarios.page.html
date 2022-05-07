@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Horarios</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="alarm" size="large"></ion-icon>
+    </ion-thumbnail>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item class="ion-margin">
+      <ion-label>Nivel</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
+      <ion-button (click)="mostrarPickerNivel()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-item class="ion-margin">
+      <ion-label>Curso</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
+      <ion-button (click)="mostrarPickerCurso()">Seleccionar</ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-button expand="block" shape="round" strong="true" class="ion-margin" routerLink="/inicio/horarios/horario-selected">Ver horario</ion-button>
+
+</ion-content>

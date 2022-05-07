@@ -1,0 +1,84 @@
+<ion-header>
+  
+  <ion-toolbar>
+
+
+    <ion-title class="ion-margin">Home</ion-title>
+    <ion-icon name="home" slot="start" size="large" class="ion-margin"></ion-icon>
+  </ion-toolbar>
+
+  
+  
+</ion-header>
+
+
+<ion-content>
+  <ion-chip class="ion-margin-end" (click)="mostrarPerfilUsuario()">
+    <ion-avatar >
+      <ion-icon name="person" size="large"></ion-icon>
+    </ion-avatar>
+    <!--<ion-label style="padding-left:8px">Nombre Usuario</ion-label> -->
+    <ion-label *ngFor="let x of listaUsuarios">{{x.COD_USUARIO}}</ion-label>
+  </ion-chip >
+
+  <ion-card class="apps-card">
+    <ion-card-header>
+      
+      <ion-card-title style="text-align: center;" *ngFor="let x of listaUsuarios">Bienvenid@ {{x.COD_USUARIO}}!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list >
+        <ion-item >
+          <ion-thumbnail slot="start" style="padding-top: 8px;">
+            <ion-icon name="checkmark" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-card-title>
+            <a routerLink="/inicio/asistencia">Asistencia</a>
+            
+          </ion-card-title>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start" style="padding-top: 8px;">
+            <ion-icon name="pencil" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-card-title>
+            <a routerLink="/inicio/leccionario">Leccionario</a>
+
+          </ion-card-title>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail slot="start" style="padding-top: 8px;">
+            <ion-icon name="newspaper" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-card-title>
+            <a routerLink="/inicio/hoja-de-vida">Hoja de Vida</a>
+
+          </ion-card-title>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-thumbnail slot="start" style="padding-top: 8px;">
+            <ion-icon name="stats-chart" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-card-title>
+            <a routerLink="/inicio/notas">Notas</a>
+
+          </ion-card-title>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-thumbnail slot="start" style="padding-top: 8px;">
+            <ion-icon name="alarm" size="large"></ion-icon>
+          </ion-thumbnail>
+          <ion-card-title>
+            <a routerLink="/inicio/horarios">Horarios</a>
+          </ion-card-title>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+
+
+
+</ion-content>

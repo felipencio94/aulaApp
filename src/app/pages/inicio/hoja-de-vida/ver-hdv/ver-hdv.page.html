@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Hoja de vida</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="newspaper" size="large"></ion-icon>
+    </ion-thumbnail>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item class="ion-margin">
+      <ion-label>Nivel</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
+      <ion-button (click)="mostrarPickerNivel()">Seleccionar</ion-button>
+    </ion-item>
+    
+    <ion-item class="ion-margin">
+      <ion-label>Curso</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
+      <ion-button (click)="mostrarPickerCurso()">Seleccionar</ion-button>
+    </ion-item>
+
+    <ion-item class="ion-margin">
+      <ion-label>Alumno</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoAlum}}</ion-text>
+      <ion-button (click)="mostrarPickerAlumno()">Seleccionar</ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-button expand="full" shape="round" class="ion-margin" id="open-modal">Mostrar Hoja de Vida</ion-button>
+  
+
+  <ion-modal trigger="open-modal" #modalhdv>
+    <ng-template>
+      <ion-content>
+        <ion-grid class="ion-text-center">
+
+          <ion-row class="ion-margin">
+            <ion-col>
+              <ion-title>
+                <ion-text color="default">
+                  Observaciones Alumno
+                </ion-text>
+              </ion-title>
+            </ion-col>
+          </ion-row>
+      
+          <ion-row class="header-row">
+            <ion-col>
+              <ion-text>Positivas</ion-text>
+            </ion-col>
+      
+      
+            <ion-col>
+              <ion-text>Negativas</ion-text>
+            </ion-col>
+          </ion-row>
+      
+      
+          <ion-row>
+            <ion-col class="ion-text-justify">
+              <ion-text >
+                  15/03/2022 - Lenguaje - Alumno se destaca por ayudar a sus compañeros
+              </ion-text>
+            </ion-col>
+        
+              <ion-col class="ion-text-justify"> 
+                <ion-text >
+                  05/05/2022 - Matemática - Alumno le dice "No sea asi joven" al profesor. Se le envía a inspectoría
+                </ion-text>
+              </ion-col>
+          </ion-row>
+            
+        </ion-grid>
+        <ion-button color="danger" (click)="cerrar()" class="ion-margin" expand="full" shape="round">Cerrar</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>
