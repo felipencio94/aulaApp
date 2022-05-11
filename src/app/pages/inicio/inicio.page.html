@@ -1,10 +1,8 @@
 <ion-header>
   
   <ion-toolbar>
-
-
-    <ion-title class="ion-margin">Home</ion-title>
-    <ion-icon name="home" slot="start" size="large" class="ion-margin"></ion-icon>
+    <ion-title class="ion-margin">Inicio</ion-title>
+    <ion-icon name="home" slot="start" size="large" class="ion-padding"></ion-icon>
   </ion-toolbar>
 
   
@@ -17,14 +15,13 @@
     <ion-avatar >
       <ion-icon name="person" size="large"></ion-icon>
     </ion-avatar>
-    <!--<ion-label style="padding-left:8px">Nombre Usuario</ion-label> -->
-    <ion-label *ngFor="let x of listaUsuarios">{{x.COD_USUARIO}}</ion-label>
+    <ion-label  *ngFor= "let x of lista">{{x.codigoUsuario}}</ion-label>
   </ion-chip >
 
   <ion-card class="apps-card">
     <ion-card-header>
       
-      <ion-card-title style="text-align: center;" *ngFor="let x of listaUsuarios">Bienvenid@ {{x.COD_USUARIO}}!</ion-card-title>
+      <ion-card-title style="text-align: center; " *ngFor= "let x of lista">Bienvenid@ {{x.codigoUsuario}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list >

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { attachView } from '@ionic/angular/providers/angular-delegate';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacionService {
 
-  constructor(private router: Router) { }
-
+  constructor(private router: Router, private api: ApiService) { }
+/*
   canActivate(route: ActivatedRouteSnapshot): boolean {
     var rutaActual = this.router.getCurrentNavigation();
     var modeloUsuario = "";
@@ -26,15 +28,9 @@ export class AutenticacionService {
     this.router.navigate(['login'])
     return false;
   }
+*/
 
-  login(modeloUsuario, modeloContrasena): boolean{
-    if(modeloUsuario == 'admin' && modeloContrasena == 'admin'){
-      return true;
-    } else{
-    return false;
-  }}
+  
 
-  loginApi(modeloUsuario, modeloContrasena){
-    
-  }
 }
+

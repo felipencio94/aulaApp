@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/models/usuario.models';
+import { Persona } from 'src/app/interface/persona';
 import { ApiService } from 'src/app/sevices/api.service';
 
 
@@ -11,36 +11,19 @@ import { ApiService } from 'src/app/sevices/api.service';
 })
 export class InicioPage implements OnInit {
 
-  constructor(private router: Router,
-    private apiService: ApiService) {
-      this.obtenerUsuariosApi();
-     }
-
+  constructor(private router: Router, private ApiService: ApiService) { }
+  lista: [{}];
   ngOnInit() {
-  }
+    
 
-  listaUsuarios: [Usuario]
+    
+    this.ApiService.recuperarDatosUsuario(this.ApiService.usuarioAuth).subscribe(data=>{
+      this.lista = [this.ApiService.usuarioLogueado];
+      console.log(this.lista);
+      }
+      );
+      
 
-  obtenerUsuariosApi(){
-    let that = this;
-    let contador = 0;
-    this.apiService.obtenerUsuarios().subscribe(data => {
-      data.forEach(element => {
-        let x: Usuario = {RUN: 0 , COD_USUARIO: '', MAIL: '', PASSWORD: '', ESTADO: ''};
-        x.RUN = element[0];
-        x.COD_USUARIO = element[1];
-        x.MAIL= element[2];
-        x.PASSWORD= element[3];
-        x.ESTADO= element[4];
-
-        if(contador === 0) {
-          that.listaUsuarios = [x];
-        } else{
-          that.listaUsuarios.push(x);
-        }
-        contador++;
-      });      
-    });
 
   }
 

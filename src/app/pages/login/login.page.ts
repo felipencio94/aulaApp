@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController} from '@ionic/angular';
+import { AlertController, ToastController} from '@ionic/angular';
 import { ApiService } from 'src/app/sevices/api.service';
 import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.models';
+
 
 @Component({
   selector: 'app-login',
@@ -12,27 +13,31 @@ import { Usuario } from 'src/app/models/usuario.models';
 })
 export class LoginPage implements OnInit {
 
+  usuarioForm = {
+    run: '',
+    password: ''
+  }
+
+  listaUsuarios: [Usuario]
+  public mostrarInfo: boolean = false;
+
   constructor(public alertController: AlertController,
     public servicio: AutenticacionService,
     public router: Router,
-    private apiService: ApiService) {
+    private apiService: ApiService,
+    public toastController: ToastController) {
       this.obtenerUsuariosApi();
     }
 
   ngOnInit() {
   }
-  
-  modeloUsuario: string = "";
-  modeloContrasena: string = "";
-  listaUsuarios: [Usuario]
-  public mostrarInfo: boolean = false;
 
   mostrarInfoButton(){
     
     this.mostrarInfo = !this.mostrarInfo;
   }
 
-  obtenerUsuariosApi(){
+ /* obtenerUsuariosApi(){
     let that = this;
     let contador = 0;
     this.apiService.obtenerUsuarios().subscribe(data => {
@@ -53,8 +58,18 @@ export class LoginPage implements OnInit {
       });      
     });
 
-  }
+  } */
 
+  obtenerUsuariosApi(){
+    let that = this;
+    let contador = 0;
+    this.apiService.obtenerUsuarios().subscribe(data => {
+      console.log(data);
+      });      
+    
+
+  }
+/*
   validarLogin() {
     var respuesta = this.servicio.login(this.modeloUsuario, this.modeloContrasena);
     if(respuesta){
@@ -72,6 +87,24 @@ export class LoginPage implements OnInit {
         this.presentarAlerta();
       }
     }
+    */
+     
+  validarLogin(){
+    let run= this.usuarioForm.run;
+    let contrasena = btoa(this.usuarioForm.password);
+    this.apiService.validarLogin(run, contrasena).subscribe( data =>{
+      if(data.result ==='LOGIN NOK'){
+        this.presentToastWithOptions('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
+      }else{
+        this.presentToast('Bienvenido!');
+        this.router.navigate(['inicio']);
+      }
+    });
+
+  }
+
+    
+  
   
 
   async presentarAlerta() {
@@ -86,5 +119,48 @@ export class LoginPage implements OnInit {
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+
+  async errorGenerico(tipo, mensaje) {  //Usar este mensaje para evitar crear una por cada tipo.
+    const alert = await this.alertController.create({
+      header: tipo,
+      message: mensaje,
+      buttons: ['Ok']
+    });
+}
+
+
+
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      position: 'bottom',
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastWithOptions(header, message) {
+    const toast = await this.toastController.create({
+      message: message,
+      icon: 'information-circle',
+      position: 'top',
+      buttons: [
+       {
+          text: 'Aceptar',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        }
+      ]
+    });
+    await toast.present();
+
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
 
 }
