@@ -15,22 +15,22 @@
 <ion-content>
   <ion-card>
     
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerNivel()">
       <ion-label>Nivel</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
-      <ion-button (click)="mostrarPickerNivel()">Seleccionar</ion-button>
+      <ion-text style="margin-right: 10%;">{{formatoNivel}}</ion-text>
+      
     </ion-item>
     
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerCurso()">
       <ion-label>Curso</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
-      <ion-button (click)="mostrarPickerCurso()">Seleccionar</ion-button>
+      <ion-text style="margin-right: 10%;">{{formatoCurso}}</ion-text>
+  
     </ion-item>
 
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerAsignatura()">
       <ion-label>Asignatura</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoAsignatura}}</ion-text>
-      <ion-button (click)="mostrarPickerAsignatura()">Seleccionar</ion-button>
+      <ion-text style="margin-right: 10%;">{{formatoAsignatura}}</ion-text>
+      
     </ion-item>
     
 
@@ -54,7 +54,7 @@
 
     <!--Boton de fecha con modal-->
 
-    <ion-item id="open-modal" class="ion-margin">
+    <ion-item id="open-modal" class="ion-margin" detail>
       <ion-icon icon="calendar-outline" slot ="start"></ion-icon>
       <ion-label>Fecha</ion-label>
       <ion-text slot="end">{{formato}}</ion-text>

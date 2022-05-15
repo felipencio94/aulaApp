@@ -23,12 +23,30 @@ export class InicioPage implements OnInit {
       }
       );
       
-
-
   }
 
   mostrarPerfilUsuario() {
     this.router.navigate(['inicio/perfil-usuario'])
+  }
+
+  irAsistencia(){
+    this.router.navigate(['inicio/asistencia'])
+  }
+
+  irLeccionario(){
+    this.router.navigate(['inicio/leccionario'])
+  }
+  
+  irHojaDeVida(){
+    this.router.navigate(['inicio/hoja-de-vida'])
+  }
+
+  irNotas(){
+    this.router.navigate(['inicio/notas'])
+  }
+
+  irHorarios(){
+    this.router.navigate(['inicio/horarios'])
   }
 
 }

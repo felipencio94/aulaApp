@@ -14,22 +14,22 @@
 
 <ion-content>
   <ion-card>
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerNivel()">
       <ion-label>Nivel</ion-label>
       <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
-      <ion-button (click)="mostrarPickerNivel()">Seleccionar</ion-button>
+      
     </ion-item>
     
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerCurso()">
       <ion-label>Curso</ion-label>
       <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
-      <ion-button (click)="mostrarPickerCurso()">Seleccionar</ion-button>
+      
     </ion-item>
 
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" detail button (click)="mostrarPickerAlumno()">
       <ion-label>Alumno</ion-label>
       <ion-text style="margin-right: 20%;">{{formatoAlum}}</ion-text>
-      <ion-button (click)="mostrarPickerAlumno()">Seleccionar</ion-button>
+      
     </ion-item>
   </ion-card>
 

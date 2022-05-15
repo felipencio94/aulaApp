@@ -15,7 +15,7 @@
     <ion-avatar >
       <ion-icon name="person" size="large"></ion-icon>
     </ion-avatar>
-    <ion-label  *ngFor= "let x of lista">{{x.codigoUsuario}}</ion-label>
+    <ion-label  *ngFor= "let x of lista">{{x.nombreCompleto}}</ion-label>
   </ion-chip >
 
   <ion-card class="apps-card">
@@ -25,50 +25,48 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list >
-        <ion-item >
+        <ion-item detail button (click)="irAsistencia()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
             <ion-icon name="checkmark" size="large"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
-            <a routerLink="/inicio/asistencia">Asistencia</a>
-            
+            Asistencia            
           </ion-card-title>
         </ion-item>
-        <ion-item>
+
+        <ion-item detail button (click)="irLeccionario()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
             <ion-icon name="pencil" size="large"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
-            <a routerLink="/inicio/leccionario">Leccionario</a>
-
+            Leccionario
           </ion-card-title>
         </ion-item>
 
-        <ion-item>
+        <ion-item detail button (click)="irHojaDeVida()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
             <ion-icon name="newspaper" size="large"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
-            <a routerLink="/inicio/hoja-de-vida">Hoja de Vida</a>
-
+            Hoja de Vida
           </ion-card-title>
         </ion-item>
 
-        <ion-item lines="none">
+        <ion-item detail button (click)="irNotas()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
             <ion-icon name="stats-chart" size="large"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
-            <a routerLink="/inicio/notas">Notas</a>
-
+            Notas
           </ion-card-title>
         </ion-item>
-        <ion-item lines="none">
+
+        <ion-item detail button (click)="irHorarios()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
             <ion-icon name="alarm" size="large"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
-            <a routerLink="/inicio/horarios">Horarios</a>
+            Horarios
           </ion-card-title>
         </ion-item>
       </ion-list>

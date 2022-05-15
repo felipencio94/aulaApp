@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     public router: Router,
     private apiService: ApiService,
     public toastController: ToastController) {
-      this.obtenerUsuariosApi();
+      //this.obtenerUsuariosApi();
     }
 
   ngOnInit() {
@@ -69,25 +69,6 @@ export class LoginPage implements OnInit {
     
 
   }
-/*
-  validarLogin() {
-    var respuesta = this.servicio.login(this.modeloUsuario, this.modeloContrasena);
-    if(respuesta){
-      console.log('login ok');
-      var navigationExtras: NavigationExtras = {
-        state: {
-          user: this.modeloUsuario,
-          pass: this.modeloContrasena
-        }
-      }
-
-      this.router.navigate(['inicio'], navigationExtras);
-    } else{
-        console.log('login not ok')
-        this.presentarAlerta();
-      }
-    }
-    */
      
   validarLogin(){
     let run= this.usuarioForm.run;
@@ -105,9 +86,7 @@ export class LoginPage implements OnInit {
 
     
   
-  
-
-  async presentarAlerta() {
+    async presentarAlerta() {
     const alert = await this.alertController.create({
       header: 'Login Incorrecto',
       message: 'Las credenciales no son correctas, favor intentarlo nuevamente',

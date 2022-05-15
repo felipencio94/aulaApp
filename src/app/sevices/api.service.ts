@@ -29,7 +29,7 @@ export class ApiService {
     return this.http.get<Respuesta>(this.rutaBase + '/loginusuario?run=' + usuario + '&pass=' + contrasena)
       .pipe( map(auth => {
         if(auth.result === 'LOGIN OK'){
-          console.log(usuario + contrasena);
+          ///console.log(usuario + contrasena);
           this.usuarioAuth=usuario;
           this.claveAuth=contrasena;
        }
