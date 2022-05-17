@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/sevices/api.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -9,7 +10,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class PerfilUsuarioPage implements OnInit {
   lista: [{}];
-  constructor (private ApiService:ApiService, private alertController: AlertController) { }
+  constructor (private ApiService:ApiService, private alertController: AlertController,
+              private router: Router) { }
 
   ngOnInit() {
     this.ApiService.recuperarDatosUsuario(this.ApiService.usuarioAuth).subscribe(data=>{
@@ -22,6 +24,10 @@ export class PerfilUsuarioPage implements OnInit {
   mostrarInfoSobre(){
     this.alertaSobreAulaappTeam(); 
 
+  }
+
+  cerrarSesion(){
+    this.router.navigate(['login']);
   }
 
   async alertaSobreAulaappTeam() {
