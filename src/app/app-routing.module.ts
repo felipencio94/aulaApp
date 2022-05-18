@@ -6,7 +6,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'login',///cambiar a 'login' luego de hacer pruebas en AndroidStudio (api no funciona en dispositivo)
     pathMatch: 'full'
   },
   {
