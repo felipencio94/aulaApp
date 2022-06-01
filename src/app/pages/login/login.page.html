@@ -8,6 +8,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+ 
   <ion-card class="ion-margin">
     <ion-card-header>
     <ion-card-title style="text-align: center;">Inicio de sesión</ion-card-title>
@@ -51,5 +52,14 @@
     </ion-item>
   </ion-list>
   -->
-  
+
+  <ion-button expand="full" color="light" size="large" class="pulse ion-margin" (click)="mostrarInfoButton()">Niveles</ion-button>
+  <ion-list lines="full" class="ion-margin" *ngIf="mostrarInfo">
+    <ion-item  *ngFor="let x of listaNiveles" detail>
+      <ion-card-header>
+        <ion-card-title>Nivel {{x.DESCRIPCION}}</ion-card-title>
+
+      </ion-card-header>
+    </ion-item>
+  </ion-list>
 </ion-content>

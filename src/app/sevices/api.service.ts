@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http'
 import { Usuario } from '../models/usuario.models';
 import { Respuesta } from '../interface/Respuesta';
 import { map, withLatestFrom } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
+// import { HttpHeaders } from '@angular/common/http';
 import { AlertController, NavController } from '@ionic/angular';
 import { Persona } from '../interface/persona';
+import { Nivel } from '../interface/nivel';
+import { Curso } from '../interface/curso';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,9 @@ import { Persona } from '../interface/persona';
 export class ApiService {
 
 
-  constructor(private http: HttpClient,  public alertController:AlertController, public navController: NavController) { }
+  constructor(private http: HttpClient,  
+    public alertController:AlertController, 
+    public navController: NavController) { }
   rutaBase: string = 'http://localhost:3000';
 
  
@@ -23,6 +27,14 @@ export class ApiService {
   public usuarioLogueado : Persona;
   obtenerUsuarios(){
     return this.http.get<Usuario[]>(this.rutaBase + '/usuario');
+  }
+
+  obtenerNiveles(){
+    return this.http.get<Nivel>(this.rutaBase + '/nivel');
+  }
+
+  obtenerCursos(ID_NIVEL){
+    return this.http.get<Curso>(this.rutaBase + '/cursos?idNivel=' + ID_NIVEL);
   }
 
   validarLogin(usuario, contrasena) {
