@@ -15,7 +15,6 @@ export class E404Page implements OnInit {
 
   volverInicio() {
     this.router.navigate(['login']);
-    
   }
 
 }

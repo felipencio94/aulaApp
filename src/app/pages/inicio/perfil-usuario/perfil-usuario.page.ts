@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/sevices/api.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera'
+
+
+
+
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -10,24 +15,27 @@ import { Router } from '@angular/router';
 })
 export class PerfilUsuarioPage implements OnInit {
   lista: [{}];
+
+  ruta: string = '';
+  
   constructor (private ApiService:ApiService, private alertController: AlertController,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.ApiService.recuperarDatosUsuario(this.ApiService.usuarioAuth).subscribe(data=>{
       this.lista = [this.ApiService.usuarioLogueado];
       }
       );
+     
       
   }
 
+  recuperarContrasena(){
+    this.router.navigate(['cambiar']);
+  }
   mostrarInfoSobre(){
     this.alertaSobreAulaappTeam(); 
 
-  }
-
-  cerrarSesion(){
-    this.router.navigate(['login']);
   }
 
   async alertaSobreAulaappTeam() {
@@ -44,5 +52,20 @@ export class PerfilUsuarioPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  logOut(){
+    this.router.navigate(['login'])
+  }
+
+  async tomarFoto(){
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri
+    });
+    var imageUrl = image.webPath;
+
+    this.ruta = imageUrl;
+
+  }
 
 }

@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AutenticacionService } from './sevices/autenticacion.service';
 
-//v-16/05/2022 21.20
-
 const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'login',///cambiar a 'login' luego de hacer pruebas en AndroidStudio (api no funciona en dispositivo)
     pathMatch: 'full'
   },
   {
@@ -16,7 +14,11 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-
+  {
+    path: 'cambiar',
+    redirectTo: 'cambiar',
+    pathMatch: 'full'
+  },
   {
     path: 'inicio',
     redirectTo: 'inicio',
@@ -105,6 +107,10 @@ const routes: Routes = [
   {
     path: 'e404',
     loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
+  },
+  {
+    path: 'cambiar',
+    loadChildren: () => import('./pages/cambiar/cambiar.module').then( m => m.CambiarPageModule)
   },
 
 ];

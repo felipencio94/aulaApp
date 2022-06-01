@@ -21,17 +21,19 @@
       <div class="borde-blanco">
         <div class="imagen-circular">
           <img src="https://thumbs.dreamstime.com/b/icono-de-usuario-del-hombre-negocios-vector-personas-en-estilo-plano-moderno-aislado-fondo-gris-s%C3%ADmbolo-silueta-para-el-dise%C3%B1o-163924886.jpg">
+
+          <!-- <ion-img [src]="ruta"></ion-img> -->
         </div>    
       </div>
     </div>
   </div>
 
   <ion-card>
-    <ion-item detail>
+    <ion-item detail button (click)="recuperarContrasena()">
       Modificar Contraseña
     </ion-item>
 
-    <ion-item detail>
+    <ion-item detail button (click)="tomarFoto()">
       Modificar imagen de perfil
     </ion-item>
 
@@ -39,9 +41,10 @@
       Sobre AulaApp
     </ion-item>
 
-    <ion-item color="danger" detail (click)="cerrarSesion()">
+    <ion-item color="danger" detail (click)="logOut()">
       Cerrar sesión
     </ion-item>
 
   </ion-card>
+
 </ion-content>

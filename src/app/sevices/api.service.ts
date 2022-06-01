@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http'
 import { Usuario } from '../models/usuario.models';
 import { Respuesta } from '../interface/Respuesta';
 import { map, withLatestFrom } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
+// import { HttpHeaders } from '@angular/common/http';
 import { AlertController, NavController } from '@ionic/angular';
 import { Persona } from '../interface/persona';
+import { Nivel } from '../interface/nivel';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ import { Persona } from '../interface/persona';
 export class ApiService {
 
 
-  constructor(private http: HttpClient,  public alertController:AlertController, public navController: NavController) { }
+  constructor(private http: HttpClient,  
+    public alertController:AlertController, 
+    public navController: NavController) { }
   rutaBase: string = 'http://localhost:3000';
 
  
@@ -23,6 +26,18 @@ export class ApiService {
   public usuarioLogueado : Persona;
   obtenerUsuarios(){
     return this.http.get<Usuario[]>(this.rutaBase + '/usuario');
+  }
+
+  // modificarContrasena(usuario, contrasena) {
+  //   return this.http.put(this.rutaBase, { nombreFuncion: "UsuarioModificarContrasena", parametros: { usuario: usuario, contrasena: contrasena } });
+  // }
+
+  cambiarContrasena(run, nuevaContrasena){
+    return this.http.put(this.rutaBase + '/cambiarContrasena',{run:run, pass:nuevaContrasena})//////////////ojito
+  }
+
+  obtenerNiveles(){
+    return this.http.get<Nivel[]>(this.rutaBase + '/nivel');
   }
 
   validarLogin(usuario, contrasena) {
@@ -41,7 +56,7 @@ export class ApiService {
       return this.http.get<Respuesta>(this.rutaBase + '/datosUsuario?run=' + run)
         .pipe( map(auth => {
           if(auth.result !== null){
-            console.log(auth.result);
+            // console.log(auth.result);
             this.usuarioLogueado = {
               runCompleto:auth.result[0][0],
               nombreCompleto:auth.result[0] [1],
@@ -53,7 +68,9 @@ export class ApiService {
               codigoUsuario : auth.result[0][7],
               rolUsuario: auth.result[0][8],
               estadoUsuario: auth.result[0][9],
-              passwordUsuario: auth.result[0][10]}
+              passwordUsuario: auth.result[0][10],
+              runUsuario: auth.result[0][11]
+            }
          }
         return auth;
        }));
