@@ -4,6 +4,8 @@ import { AlertController, ToastController} from '@ionic/angular';
 import { ApiService } from 'src/app/sevices/api.service';
 import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.models';
+import { Nivel } from 'src/app/interface/nivel';
+import { DbService } from 'src/app/sevices/db.service';
 
 
 @Component({
@@ -12,21 +14,31 @@ import { Usuario } from 'src/app/models/usuario.models';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  listaNivel: Nivel[] = [];
   usuarioForm = {
     run: '',
     password: ''
   }
 
-  listaUsuarios: [Usuario]
+  //listaUsuarios: [Usuario]
+  listaNiveles: [Nivel]
   public mostrarInfo: boolean = false;
 
   constructor(public alertController: AlertController,
     public servicio: AutenticacionService,
     public router: Router,
-    private apiService: ApiService,
-    public toastController: ToastController) {
+    public apiService: ApiService,
+    public toastController: ToastController,
+    public db: DbService) {
       //this.obtenerUsuariosApi();
+      this.obtenerNIvelApi();
+      /*this.db.validarUsuario().then(data => {
+        console.log('FFO: USUARIOS CREADOS: ' + data);
+        if(data === 1) {
+          this.router.navigate(['inicio'])
+        }
+        
+      })*/
     }
 
   ngOnInit() {
@@ -60,13 +72,14 @@ export class LoginPage implements OnInit {
 
   } */
 
-  obtenerUsuariosApi(){
+  obtenerNIvelApi(){
     let that = this;
     let contador = 0;
-    this.apiService.obtenerUsuarios().subscribe(data => {
-      console.log(data);
-      });      
-    
+    this.apiService.obtenerNiveles().subscribe(data => {
+      for(let elemento in data){
+        this.listaNivel.push(data[elemento]);
+      }
+    });    
 
   }
      
@@ -75,29 +88,30 @@ export class LoginPage implements OnInit {
     let contrasena = btoa(this.usuarioForm.password);
     this.apiService.validarLogin(run, contrasena).subscribe( data =>{
       if(data.result ==='LOGIN NOK'){
+        //this.db.eliminarUsuarioDb();
         this.presentToastWithOptions('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
       }else{
+        //this.db.eliminarUsuarioDb();
+        //this.db.crearUsuarioDb(this.usuarioForm.run, this.usuarioForm.password);
         this.presentToast('Bienvenido!');
         this.router.navigate(['inicio']);
       }
     });
 
-  }
-
-    
+  }  
   
-    async presentarAlerta() {
-    const alert = await this.alertController.create({
-      header: 'Login Incorrecto',
-      message: 'Las credenciales no son correctas, favor intentarlo nuevamente',
-      buttons: ['Aceptar']
-    });
+  async presentarAlerta() {
+  const alert = await this.alertController.create({
+    header: 'Login Incorrecto',
+    message: 'Las credenciales no son correctas, favor intentarlo nuevamente',
+    buttons: ['Aceptar']
+  });
 
-    await alert.present();
+  await alert.present();
 
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
 
 
   async errorGenerico(tipo, mensaje) {  //Usar este mensaje para evitar crear una por cada tipo.

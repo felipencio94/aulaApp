@@ -1,6 +1,6 @@
 export interface Persona {
-    runCompleto:string,
-    nombreCompleto:string,
+    runCompleto:string;
+    nombreCompleto:string;
     fecNacimiento:string;
     sexo:string;
     pueblo:string;
