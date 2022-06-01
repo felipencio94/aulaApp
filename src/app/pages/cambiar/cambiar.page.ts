@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { closestTo } from 'date-fns';
 import { ApiService } from 'src/app/sevices/api.service';
 import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 
@@ -45,15 +46,17 @@ export class CambiarPage implements OnInit {
     console.log(usuario);
     console.log(contrasena);
     
-    if(usuario === this.apiService.usuarioLogueado.runUsuario && contrasena ===  this.apiService.usuarioLogueado.passwordUsuario){
-      console.log('runCompleto: '+this.lista[0]['runCompleto']+' run: '+this.lista[0]['runUsuario']);console.log('Usuario coincide');
+    if(usuario == this.apiService.usuarioLogueado.runUsuario && contrasena ==  this.apiService.usuarioLogueado.passwordUsuario){
+      console.log('Usuario coincide');
+      
+      console.log('runCompleto: '+this.lista[0]['runCompleto']+' run: '+this.lista[0]['runUsuario']);
       this.apiService.cambiarContrasena(usuario, nuevaContrasena).subscribe(data=>{
         
         
       })
 
     }else{
-      console.log('no pasa na');
+      console.log('usuario no coincide');
       
     }
      
