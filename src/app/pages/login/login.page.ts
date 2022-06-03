@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
+  
   mostrarInfoButton(){
     
     this.mostrarInfo = !this.mostrarInfo;
@@ -116,6 +116,8 @@ export class LoginPage implements OnInit {
     });
 
   }  
+
+  
   
   async presentarAlerta() {
   const alert = await this.alertController.create({

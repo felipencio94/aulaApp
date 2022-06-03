@@ -7,6 +7,7 @@ import { map, withLatestFrom } from 'rxjs/operators';
 import { AlertController, NavController } from '@ionic/angular';
 import { Persona } from '../interface/persona';
 import { Nivel } from '../interface/nivel';
+import { Curso } from '../interface/curso';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +33,19 @@ export class ApiService {
   //   return this.http.put(this.rutaBase, { nombreFuncion: "UsuarioModificarContrasena", parametros: { usuario: usuario, contrasena: contrasena } });
   // }
 
-  cambiarContrasena(run, nuevaContrasena){
-    return this.http.put(this.rutaBase + '/cambiarContrasena',{run:run, pass:nuevaContrasena})//////////////ojito
+  cambiarClave(run, nuevaContrasena){
+    // console.log(run);
+    // console.log(nuevaContrasena);
+    return this.http.post(this.rutaBase + '/cambiarClave',{clave:nuevaContrasena,run:run})//////////////ojito
+    
   }
 
   obtenerNiveles(){
     return this.http.get<Nivel[]>(this.rutaBase + '/nivel');
+  }
+
+  obtenerCursos(ID_NIVEL){
+    return this.http.get<Curso>(this.rutaBase + '/cursos?ID_NIVEL=' + ID_NIVEL);
   }
 
   validarLogin(usuario, contrasena) {

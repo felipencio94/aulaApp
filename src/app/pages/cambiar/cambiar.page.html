@@ -12,18 +12,12 @@
     <form class="custom-form" method="post">
       <ion-label>Cambiar Contraseña</ion-label>
       <input
-      type="text"
-      [(ngModel)]="usuarioFormCambiar.usuario"
-      name="text"
-      placeholder="Ingrese Usuario"
-      required="required"
-    />
-      <input
         type="text"
         [(ngModel)]="usuarioFormCambiar.password"
         name="password"
         placeholder="Contraseña Actual"
         required="required"
+        maxlength="25"
       />
       <input
         type="password"
@@ -31,6 +25,7 @@
         name="nueva_password"
         placeholder="Nueva Contraseña"
         required="required"
+        maxlength="25"
       />
       <input
         type="password"
@@ -38,6 +33,7 @@
         name="conf_nueva_password"
         placeholder="Repita Nueva Contraseña"
         required="required"
+        maxlength="25"
       />
       <button type="submit" (click)="cambiarContrasena()">Cambiar</button>
     </form>
