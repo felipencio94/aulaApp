@@ -30,6 +30,10 @@ export class PerfilUsuarioPage implements OnInit {
       
   }
 
+  recuperarContrasena(){
+    this.router.navigate(['cambiar']);
+  }
+
   mostrarInfoSobre(){
     this.alertaSobreAulaappTeam(); 
 

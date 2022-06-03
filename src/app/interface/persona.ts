@@ -9,5 +9,6 @@ export interface Persona {
     codigoUsuario:string;
     rolUsuario:string;
     estadoUsuario:string;
-    passwordUsuario:string
+    passwordUsuario:string;
+    runUsuario?: string;
 }

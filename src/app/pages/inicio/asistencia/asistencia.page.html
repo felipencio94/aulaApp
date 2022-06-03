@@ -18,8 +18,8 @@
     
     <ion-item class="ion-margin" >
       <ion-label>Nivel</ion-label>
-      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (click)="obtenerCursoApi()" >
-        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL" >{{nivel.DESCRIPCION}} </ion-select-option>
+      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (ionChange)="onChange(obtenerCursoApi())" >
+        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL">{{nivel.DESCRIPCION}} </ion-select-option>
       </ion-select>
 
       
@@ -27,8 +27,8 @@
 
     <ion-item class="ion-margin">
       <ion-label>Curso</ion-label>
-      <ion-select name ="select_curso" [(ngModel)]="mdl_curso" >
-        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}} </ion-select-option>
+      <ion-select name ="select_curso" [(ngModel)]="mdl_curso"  >
+        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -71,7 +71,7 @@
       </ng-template>
     </ion-modal>
 
-    <ion-button expand="block" shape="round" strong="true" id="modal-alumnos" class="ion-margin" routerLink="/inicio/asistencia/asistencia-alumnos">Ir</ion-button>
+    <ion-button expand="block" shape="round" strong="true" class="ion-margin" routerLink="/inicio/asistencia/asistencia-alumnos">Ir</ion-button>
 
 
   </ion-card>

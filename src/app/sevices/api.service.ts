@@ -8,6 +8,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Persona } from '../interface/persona';
 import { Nivel } from '../interface/nivel';
 import { Curso } from '../interface/curso';
+import { Alumno } from '../interface/alumno';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +30,23 @@ export class ApiService {
     return this.http.get<Usuario[]>(this.rutaBase + '/usuario');
   }
 
+  cambiarClave(run, nuevaContrasena){
+    // console.log(run);
+    // console.log(nuevaContrasena);
+    return this.http.post(this.rutaBase + '/cambiarClave',{clave:nuevaContrasena,run:run})//////////////ojito
+    
+  }
+
   obtenerNiveles(){
     return this.http.get<Nivel>(this.rutaBase + '/nivel');
   }
 
   obtenerCursos(ID_NIVEL){
-    return this.http.get<Curso>(this.rutaBase + '/cursos?idNivel=' + ID_NIVEL);
+    return this.http.get<Curso>(this.rutaBase + '/cursos?ID_NIVEL=' + ID_NIVEL);
+  }
+
+  obtenerAlumnos(){
+    return this.http.get<Alumno[]>(this.rutaBase + '/alumno');
   }
 
   validarLogin(usuario, contrasena) {
@@ -65,7 +77,8 @@ export class ApiService {
               codigoUsuario : auth.result[0][7],
               rolUsuario: auth.result[0][8],
               estadoUsuario: auth.result[0][9],
-              passwordUsuario: auth.result[0][10]}
+              passwordUsuario: auth.result[0][10],
+              runUsuario: auth.result[0][11]}
          }
         return auth;
        }));

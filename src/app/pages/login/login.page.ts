@@ -6,6 +6,8 @@ import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.models';
 import { Nivel } from 'src/app/interface/nivel';
 import { DbService } from 'src/app/sevices/db.service';
+import { Alumno } from 'src/app/interface/alumno';
+import { element } from 'protractor';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class LoginPage implements OnInit {
   }
 
   //listaUsuarios: [Usuario]
-  listaNiveles: [Nivel]
+  listaAlumnos: [Alumno]
   public mostrarInfo: boolean = false;
 
   constructor(public alertController: AlertController,
@@ -31,7 +33,7 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     public db: DbService) {
       //this.obtenerUsuariosApi();
-      this.obtenerNIvelApi();
+      this.obtenerAlumnosApi();
       /*this.db.validarUsuario().then(data => {
         console.log('FFO: USUARIOS CREADOS: ' + data);
         if(data === 1) {
@@ -49,37 +51,30 @@ export class LoginPage implements OnInit {
     this.mostrarInfo = !this.mostrarInfo;
   }
 
- /* obtenerUsuariosApi(){
+
+  obtenerAlumnosApi(){
     let that = this;
     let contador = 0;
-    this.apiService.obtenerUsuarios().subscribe(data => {
-      data.forEach(element => {
-        let x: Usuario = {RUN: 0 , COD_USUARIO: '', MAIL: '', PASSWORD: '', ESTADO: ''};
-        x.RUN = element[0];
-        x.COD_USUARIO = element[1];
-        x.MAIL= element[2];
-        x.PASSWORD= element[3];
-        x.ESTADO= element[4];
+    this.apiService.obtenerAlumnos().subscribe(data => {
+      data.forEach(element =>{
+        let x: Alumno = {RUNALUMNO: '', NOMBREALUMNO: '',ESTADO: '',CURSOACTUAL: '', ANIO: 0,
+        DIRECCION: '', SEXO: '', DISCAPACIDAD: '', NIVELALUMNO: '', FECHANACIMIENTO: '', 
+        EDAD: 0, PUEBLOORIGINARIO: ''};
+        x.RUNALUMNO = element[0];
+        x.NOMBREALUMNO= element[1];
 
-        if(contador === 0) {
-          that.listaUsuarios = [x];
-        } else{
-          that.listaUsuarios.push(x);
+        if(contador === 0){
+          that.listaAlumnos = [x];
+        } else {
+          that.listaAlumnos.push(x);
         }
+
         contador++;
-      });      
-    });
+      });
 
-  } */
-
-  obtenerNIvelApi(){
-    let that = this;
-    let contador = 0;
-    this.apiService.obtenerNiveles().subscribe(data => {
-      for(let elemento in data){
-        this.listaNivel.push(data[elemento]);
-      }
-    });    
+      console.log(this.listaAlumnos);
+      
+    });  
 
   }
      
