@@ -16,7 +16,7 @@
   <div class="header">
     <h2  *ngFor= "let x of lista">{{x.nombreCompleto}}</h2>
   </div>
-  <div class="img-centro">
+  <!-- <div class="img-centro">
     <div class="borde-verde">
       <div class="borde-blanco">
         <div class="imagen-circular">
@@ -24,16 +24,16 @@
         </div>    
       </div>
     </div>
-  </div>
+  </div> -->
 
   <ion-card>
-    <ion-item detail>
+    <ion-item detail button (click)="recuperarContrasena()">
       Modificar Contraseña
     </ion-item>
 
-    <ion-item detail button (click)="tomarFoto()">
+    <!-- <ion-item detail button (click)="tomarFoto()">
       Modificar imagen de perfil
-    </ion-item>
+    </ion-item> -->
 
     <ion-item detail button (click)="mostrarInfoSobre()">
       Sobre AulaApp

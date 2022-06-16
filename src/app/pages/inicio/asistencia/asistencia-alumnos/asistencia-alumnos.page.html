@@ -13,158 +13,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 1</ion-label>              
+  <ion-list lines ="full" class="ion-margin" >
+    <ion-item *ngFor="let x of listaAsistencia">
+      <ion-card-header>
+        <ion-card-title >{{x.NOMBREALUMNO}}</ion-card-title>   
+      </ion-card-header>             
+      <!-- <div>  -->
+        <!-- <div float-right class="my-checkbox" > -->
+          <!-- <ion-item > -->
+            <ion-input type="checkbox" slot="end">
+              <ion-label class="ion-margin">Presente</ion-label>
+              <ion-checkbox  slot="end" [(ngModel)]="x.PRESENTE" (ionChange)="asistenciaAlumnoCambiada()"></ion-checkbox>
+            </ion-input>
+          <!-- </ion-item> -->
+        <!-- </div>    -->
+      <!-- </div> -->
     </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>   
-    </div>
-  </ion-item>
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 2</ion-label>              
+  </ion-list>
+
+  <ion-button expand="block" strong="true" id="modal-alumnos" class="ion-margin" (click)="confirmarAsistencia()">Confirmar Asistencia</ion-button>
+
+  <!-- <ion-list lines="full">
+    <ion-item *ngFor="let alumno of listaAlumnos">
+      <ion-card-header>
+        <ion-card-title> rut: {{alumno.RUNALUMNO}}</ion-card-title>
+        <ion-card-subtitle>id curso: {{alumno.ID_CURSO}}</ion-card-subtitle>
+      </ion-card-header>
     </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>  
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 3</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>  
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 4</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>   
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 5</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>  
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 6</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>  
-    </div>
-  </ion-item>
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 7</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>   
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 8</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>   
-    </div>
-  </ion-item>
-
-  <ion-item>
-    <ion-item>
-      <ion-label>ALumno 9</ion-label>              
-    </ion-item>
-    <div> 
-      <div float-right class="my-checkbox" >
-        <ion-item >
-          <ion-input type="checkbox" slot="end">
-            <ion-label class="ion-margin">Presente</ion-label>
-            <ion-checkbox name="ob-positiva">
-            </ion-checkbox>
-          </ion-input>
-        </ion-item>
-      </div>   
-    </div>
-  </ion-item>
-
-  <ion-button expand="block" strong="true" id="modal-alumnos" class="ion-margin" routerLink="/inicio">Confirmar Asistencia</ion-button>
-
-
+  </ion-list> -->
 </ion-content>

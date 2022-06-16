@@ -17,22 +17,27 @@
 
   <ion-card>
     
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerNivel()">
+    <ion-item class="ion-margin" >
       <ion-label>Nivel</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoNivel}}</ion-text>
+      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (ionChange)="onChange(obtenerCursoApi())" >
+        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL" ngDefaultControl>{{nivel.DESCRIPCION}} </ion-select-option>
+      </ion-select>
       
     </ion-item>
     
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerCurso()">
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
       <ion-label>Curso</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoCurso}}</ion-text>
+      <ion-select name ="select_curso" [(ngModel)]="mdl_curso" (ionChange)="onChange(obtenerAlumnosApi())">
+        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO" ngDefaultControl>{{curso.COMPUESTO}}</ion-select-option>
+      </ion-select>
       
     </ion-item>
 
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerAlumno()">
+    <ion-item class="ion-margin" *ngIf="mostrarAlumno">
       <ion-label>Alumno</ion-label>
-      <ion-text style="margin-right: 20%;">{{formatoAlum}}</ion-text>
-      
+      <ion-select name ="select_alumno" [(ngModel)]="mdl_alumno" (ionChange)="onChange(mdl_alumno)">
+        <ion-select-option *ngFor="let atrib of listaObservacion" [value]="atrib.RUN" >{{atrib.NOMBREALUMNO}}</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <!--Boton de fecha sin modal-->
@@ -74,16 +79,13 @@
       </ng-template>
     </ion-modal>
     <ion-item>
-      <ion-item>
-        <ion-label>Tipo de Observación:</ion-label>              
-      </ion-item>
+      <ion-label>Tipo de Observación:</ion-label>              
       <div> 
         <div float-right class="my-checkbox" >
           <ion-item >
             <ion-input type="checkbox" slot="end">
               <ion-label class="ion-margin">Positiva</ion-label>
-              <ion-checkbox name="ob-positiva">
-              </ion-checkbox>
+              <ion-checkbox slot="end" [(ngModel)]="box_positiva" (ionChange)="actualizaNegativaPositiva()"></ion-checkbox>
             </ion-input>
           </ion-item>
         </div>
@@ -91,8 +93,7 @@
           <ion-item>
             <ion-input type="checkbox" slot="end">
               <ion-label class="ion-margin">Negativa</ion-label>
-              <ion-checkbox name="ob-negativa">
-              </ion-checkbox>
+              <ion-checkbox slot="end" [(ngModel)]="box_negativa" (ionChange)="actualizaNegativaPositiva()"></ion-checkbox>
             </ion-input>
           </ion-item>
         </div>
@@ -102,7 +103,7 @@
 
     <ion-item>
       <ion-label position="stacked">Observación estudiante</ion-label>
-      <ion-textarea placeholder="Ingrese aquí la Observación..."></ion-textarea>
+      <ion-textarea placeholder="Asignatura - Descripcion de la observación..." [(ngModel)]="txt_observacion"></ion-textarea>
     </ion-item>
 
     

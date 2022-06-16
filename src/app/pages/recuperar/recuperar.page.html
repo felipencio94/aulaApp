@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recuperar Contraseña</ion-title>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+    </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card class="ion-margin" color="primary"> 
+      <br><h2 >Ingresa tu correo electrónico para recuperar tu contraseña!</h2> <br>
+      <img src="assets/icon/favicon.png" width="60%">
+    </ion-card>
+
+    <ion-card class="ion-margin" color="secondary">
+      <ion-item *ngIf="!ocultarEnviarMail">
+        <ion-label class="ion-margin" position="floating" color="secondary">Usuario (RUN sin punto ni guión)</ion-label>
+        <ion-input type="tel" [(ngModel)]="usuarioForm.run" maxlength="10"></ion-input>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card class="ion-margin" color="secondary">
+      <ion-item *ngIf="!ocultarEnviarMail">
+        <ion-label class="ion-margin" position="floating" color="secondary">Correo Electrónico</ion-label>
+        <ion-input type="email" [(ngModel)]="usuarioForm.mail"></ion-input>
+      </ion-item>
+    </ion-card>
+    
+  </ion-card>
+  <ion-button *ngIf="!ocultarEnviarMail" expand="block" color="warning" class="ion-margin" position="floating" size="large" (click)="enviarMail()">ENVIAR MAIL</ion-button>
+  
+  <ion-card *ngIf="mostrarInputCodigo">
+    <ion-card class="ion-margin" color="primary"> 
+      <br><h6 >• Ingresa el codigo aquí • <p> El código tiene una duración de 10 minutos</p></h6> <br>
+    </ion-card>
+    <ion-item>
+      <ion-label class="ion-margin" position="floating" color="primary">Código</ion-label>
+      <ion-input [(ngModel)]="usuarioForm.codigoOtp"></ion-input>
+    </ion-item>
+    <ion-button expand="block" color="warning" class="ion-margin" position="floating" size="large" (click)="verificaCodigo()">Cambiar Contraseña</ion-button>
+
+  </ion-card>
+</ion-content>

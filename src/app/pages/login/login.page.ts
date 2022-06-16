@@ -5,7 +5,8 @@ import { ApiService } from 'src/app/sevices/api.service';
 import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.models';
 import { Nivel } from 'src/app/interface/nivel';
-import { DbService } from 'src/app/sevices/db.service';
+import { Alumno } from 'src/app/interface/alumno';
+import { element } from 'protractor';
 
 
 @Component({
@@ -14,91 +15,64 @@ import { DbService } from 'src/app/sevices/db.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  listaNivel: Nivel[] = [];
+  
   usuarioForm = {
     run: '',
     password: ''
   }
 
   //listaUsuarios: [Usuario]
-  listaNiveles: [Nivel]
+  
   public mostrarInfo: boolean = false;
 
   constructor(public alertController: AlertController,
     public servicio: AutenticacionService,
     public router: Router,
     public apiService: ApiService,
-    public toastController: ToastController,
-    public db: DbService) {
-      //this.obtenerUsuariosApi();
-      this.obtenerNIvelApi();
-      /*this.db.validarUsuario().then(data => {
-        console.log('FFO: USUARIOS CREADOS: ' + data);
-        if(data === 1) {
-          this.router.navigate(['inicio'])
-        }
-        
-      })*/
+    public toastController: ToastController) {
+            
     }
 
   ngOnInit() {
+    // this.limpiarFormulario();
   }
+
+  // limpiarFormulario(){
+  //   this.usuarioForm.password = "";
+  //   this.usuarioForm.run = "";
+  // }
 
   mostrarInfoButton(){
     
     this.mostrarInfo = !this.mostrarInfo;
   }
 
- /* obtenerUsuariosApi(){
-    let that = this;
-    let contador = 0;
-    this.apiService.obtenerUsuarios().subscribe(data => {
-      data.forEach(element => {
-        let x: Usuario = {RUN: 0 , COD_USUARIO: '', MAIL: '', PASSWORD: '', ESTADO: ''};
-        x.RUN = element[0];
-        x.COD_USUARIO = element[1];
-        x.MAIL= element[2];
-        x.PASSWORD= element[3];
-        x.ESTADO= element[4];
 
-        if(contador === 0) {
-          that.listaUsuarios = [x];
-        } else{
-          that.listaUsuarios.push(x);
-        }
-        contador++;
-      });      
-    });
-
-  } */
-
-  obtenerNIvelApi(){
-    let that = this;
-    let contador = 0;
-    this.apiService.obtenerNiveles().subscribe(data => {
-      for(let elemento in data){
-        this.listaNivel.push(data[elemento]);
-      }
-    });    
-
-  }
-     
+       
   validarLogin(){
     let run= this.usuarioForm.run;
     let contrasena = btoa(this.usuarioForm.password);
     this.apiService.validarLogin(run, contrasena).subscribe( data =>{
-      if(data.result ==='LOGIN NOK'){
-        //this.db.eliminarUsuarioDb();
-        this.presentToastWithOptions('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
+      if(this.usuarioForm.run === '' || this.usuarioForm.password === ''){
+
+      this.presentToastWithOptions('Atención!','Los campos no pueden estar vacíos');
+   
+    }else if(data.result ==='LOGIN NOK'){
+      this.presentToastWithOptions('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
+      
       }else{
-        //this.db.eliminarUsuarioDb();
-        //this.db.crearUsuarioDb(this.usuarioForm.run, this.usuarioForm.password);
+ 
         this.presentToast('Bienvenido!');
         this.router.navigate(['inicio']);
+        
       }
     });
 
   }  
+
+  recuperarContrasena(){
+    this.router.navigate(['recuperar']);
+  }
   
   async presentarAlerta() {
   const alert = await this.alertController.create({

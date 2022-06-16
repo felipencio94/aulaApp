@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonDatetime, PickerController } from '@ionic/angular';
+import { IonDatetime, PickerController, ToastController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
+import { ApiService } from 'src/app/sevices/api.service';
+import { Nivel } from 'src/app/interface/nivel';
+import { Curso } from 'src/app/interface/curso';
+import { Alumno } from 'src/app/interface/alumno';
+import { Observacion } from 'src/app/interface/observacion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nueva-hdv',
@@ -8,27 +14,58 @@ import { format, parseISO } from 'date-fns';
   styleUrls: ['./nueva-hdv.page.scss'],
 })
 export class NuevaHdvPage implements OnInit {
+  mostrarCurso: boolean= false;
+  mostrarAlumno: boolean = false;
+  listaNivel: Nivel[] = [];
+  listaCursos: Curso[] =[];
+  listaAlumnos: Alumno[] = [];
+  listaObservacion: Observacion[] = [];
+  mdl_curso: Curso;
+  mdl_nivel: number;
+  mdl_alumno: any;
+  box_positiva: boolean = false;
+  box_negativa: boolean = false;
+  box_alumnoFinalString = '';
+  id_curso: number;
+  txt_observacion: string = '';
+  usr_creacion:string;
   mostrarPickerFecha = false;
   dateValue = format(new Date(),  'yyyy-MM-dd') + 'T09:00:00.000Z';
   formato = '';
-  formatoNivel ='';
-  formatoCurso ='';
-  formatoAlum ='';
+  nivel:Nivel;
+  lista: [{}]; 
   @ViewChild(IonDatetime) datetime: IonDatetime
 
-  constructor(public _pickerCtrl: PickerController) {
-    this.setHoy()
+  constructor(public _pickerCtrl: PickerController,
+    public apiService: ApiService,
+    public toastController: ToastController,
+    public router: Router) {
+    this.setHoy();
+    this.listaObservacion;
+    this.apiService.recuperarDatosUsuario(this.apiService.usuarioAuth).subscribe(data=>{
+      this.lista = [this.apiService.usuarioLogueado];
+      console.log(this.apiService.usuarioLogueado.runUsuario);
+
+      });
+      this.usr_creacion = this.apiService.usuarioLogueado.runUsuario;
+    // this.obtenerNIvelApi();
+    // this.obtenerAlumnosApi();
+    // this.listarAlumnos();
    }
 
   ngOnInit() {
+    this.obtenerNIvelApi();
+    
+    
   }
+
   setHoy() {
-    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd') + 'T09:00:00.000Z'), ' dd/MM/yyyy');
+    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd')), ' dd-MM-yyyy');
   }
   fechaCambiada(value) {
     console.log(value);
     this.dateValue = value;
-    this.formato = format(parseISO(value),' MMM d, yyyy'); 
+    this.formato = format(parseISO(value), 'dd-MM-yyyy'); 
     this.mostrarPickerFecha = false;
 
   }
@@ -40,114 +77,173 @@ export class NuevaHdvPage implements OnInit {
     this.datetime.confirm(true);
   }
 
-  confirmarObservacion() {
-    console.log('confirma cambios')
-  }
+  
 
-  async mostrarPickerNivel() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Nivel',
-          options:[
-            { text: 'Prebasica', value:'prebasica'},
-            { text: 'Basica', value:'basica'},
-            { text: 'Media', value:'media'}
-          ]
-        }
+  obtenerNIvelApi(){
+
+    this.apiService.obtenerNiveles().subscribe(data => {
+      for(let elemento in data){
         
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (value) => {
-            console.log('se cacela', value)
-            this.formatoNivel = '';
+        this.listaNivel.push(data[elemento]);
+        // console.log(data);
+        
+      }
+    });    
+
+  }
+
+  onChange(selectedValue){
+    console.log(selectedValue);
+    this.mostrarCurso = true;
+    if(this.mostrarCurso === true){
+      this.mostrarAlumno = true;
+      // console.log(this.mostrarAlumno);      
+    }
+  }
+
+  obtenerCursoApi(){
+    this.listaCursos=[];
+    this.apiService.obtenerCursos(this.mdl_nivel).subscribe(data => {
+      for(let elemento in data){
+        this.listaCursos.push(data[elemento]);}
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.')
+    })
+    ;    
+
+  }
+  obtenerValor(valor){
+    this.mdl_nivel = valor;
+  }
+
+  obtenerAlumnosApi(){
+ 
+    this.listaAlumnos =[];
+    this.apiService.obtenerAlumnos(this.mdl_curso).subscribe(data =>{
+      for(let elemento in data){
+        this.listaAlumnos.push(data[elemento]); 
+        this.listaObservacion = this.listaAlumnos; 
+        for(let atrib of this.listaObservacion){
+          this.id_curso = atrib.ID_CURSO;
+        }        
             
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoNivel = selected.Nivel.text;
-            
-          }
-        }
-      ]
-    });
+      }
+      // console.log(data);
+      // console.log(this.mdl_curso.ID_CURSO);
+      // this.apiService.listaAlumnos = this.listaAlumnos;
+      // this.listaObservacion = this.listaAlumnos;
+      // this.mdl_alumno = this.listaAlumnos;
+      console.log(this.listaObservacion);
+      console.log(this.id_curso);
+      
+      
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.');
+    })
+    
+  }
+  listarAlumnos(){
+    
+    this.listaObservacion = this.apiService.listaAlumnos; 
+    for(let atrib of this.listaObservacion){
+      atrib.USR_CREACION = this.apiService.usuarioLogueado.runUsuario;
+      this.usr_creacion = atrib.USR_CREACION;
+    }
 
-    await picker.present();
+    // console.log(this.apiService.listaAlumnos);
+    // console.log(this.asistenciaAlumnoCambiada());
+    
+    // for(let elemento of this.listaAsistencia){
+    //   elemento.PRESENTE = this.alumnoPresente;
+    //   this.alumnoPresente = !this.alumnoPresente;
+    //   console.log(elemento.PRESENTE = this.alumnoPresente);
+      
+    // }
+    
+    
+    
+  }
+
   
+
+  actualizaNegativaPositiva(){
+    if(this.box_negativa === true){
+      this.box_alumnoFinalString = String(this.box_negativa);
+      this.box_alumnoFinalString = '-';
+      
+    }else if(this.box_positiva === true){
+      this.box_alumnoFinalString = String(this.box_positiva);
+      this.box_alumnoFinalString = '+';
+    }    
+
   }
 
-  async mostrarPickerCurso() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Curso',
-          options:[
-            { text: 'IV° A', value:'IVa'},
-            { text: 'IV° B', value:'IVb'},
-            { text: 'IV° C', value:'IVc'}
-          ]
-        }
-      ],
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      position: 'bottom',
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastWithOptions(header, message) {
+    const toast = await this.toastController.create({
+      message: message,
+      icon: 'information-circle',
+      position: 'top',
       buttons: [
-        {
-          text: 'Cancelar',
+       {
+          text: 'Aceptar',
           role: 'cancel',
-          handler: (value) => {
-            this.formatoCurso = '';
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoCurso = selected.Curso.text;
+          handler: () => {
+
           }
         }
       ]
     });
+    await toast.present();
 
-    await picker.present();
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  confirmarObservacion() {
+    this.txt_observacion;
+    for(let atrib of this.listaObservacion){
+      atrib.TIPO = this.box_alumnoFinalString; 
+      this.box_alumnoFinalString = atrib.TIPO;
+      atrib.DESC_OBS = this.txt_observacion;
+      this.txt_observacion = atrib.DESC_OBS;
+      atrib.FECHA_INS = this.formato;
+      this.formato = atrib.FECHA_INS;
+      atrib.USR_CREACION = this.usr_creacion;
+      this.usr_creacion = atrib.USR_CREACION;
+      atrib.RUN = this.mdl_alumno;
+      this.mdl_alumno = atrib.RUN;
+      atrib.ID_CURSO = this.id_curso;
+      this.id_curso = atrib.ID_CURSO;
+    }
+    //id observacion
+    console.log('tipo de observacion: ' + this.box_alumnoFinalString);//tipo de observacion   
+    console.log('desc. observacion: ' + this.txt_observacion);//desc. observacion
+    console.log('fecha observacion: ' + this.formato);//fecha observacion
+    console.log('usuario creador observacion: ' + this.usr_creacion);//usuario creador observacion
+    console.log('run alumno: ' + this.mdl_alumno);//run alumno
+    console.log('id curso: ' + this.id_curso);//id curso
+    console.log(this.listaObservacion);
+    
+    
+    console.log('confirma cambios')
+    this.box_alumnoFinalString= '';
+    this.txt_observacion= '';
+    this.formato= '';
+    this.mdl_alumno= '';
+    this.id_curso= 0;
+    this.router.navigate(['inicio']);
+    this.presentToast('Exito! Observación registrada correctamente.');
+  }
   
-  }
-
-  async mostrarPickerAlumno() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Alumno',
-          options:[
-            { text: 'David Arellano', value:'David Arellano'},
-            { text: 'Brayan Cortés', value:'Brayan Cortes'},
-            { text: 'Gabriel Suazo', value:'Gabriel Suazo'}
-          ]
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (value) => {
-            this.formatoAlum = '';
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoAlum = selected.Alumno.text;
-          }
-        }
-      ]
-    });
-
-    await picker.present();
-
-  }
+ 
 
 }

@@ -81,6 +81,18 @@ const routes: Routes = [
     redirectTo: 'inicio/hoja-de-vida/ver-hdv',
     pathMatch: 'full'
   },
+
+  {
+    path: 'cambiar',
+    redirectTo: 'cambiar',
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'recuperar',
+    redirectTo: 'recuperar',
+    pathMatch: 'full'
+  },
   {
     path: '**',
     redirectTo: 'e404',
@@ -103,6 +115,14 @@ const routes: Routes = [
   {
     path: 'e404',
     loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
+  },
+  {
+    path: 'cambiar',
+    loadChildren: () => import('./pages/cambiar/cambiar.module').then( m => m.CambiarPageModule)
+  },
+  {
+    path: 'recuperar',
+    loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
 
 ];

@@ -15,21 +15,27 @@
 <ion-content>
   <ion-card>
     
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerNivel()">
+    <ion-item class="ion-margin">
       <ion-label>Nivel</ion-label>
-      <ion-text style="margin-right: 10%;">{{formatoNivel}}</ion-text>
+      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (ionChange)="onChange(obtenerCursoApi())" >
+        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL">{{nivel.DESCRIPCION}} </ion-select-option>
+      </ion-select>
       
     </ion-item>
     
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerCurso()">
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
       <ion-label>Curso</ion-label>
-      <ion-text style="margin-right: 10%;">{{formatoCurso}}</ion-text>
+      <ion-select name ="select_curso" [(ngModel)]="mdl_curso" (ionChange)="onChange(obtenerAsignaturaApi())" >
+        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
+      </ion-select>
   
     </ion-item>
 
-    <ion-item class="ion-margin" detail button (click)="mostrarPickerAsignatura()">
+    <ion-item class="ion-margin" *ngIf="mostrarAsignatura">
       <ion-label>Asignatura</ion-label>
-      <ion-text style="margin-right: 10%;">{{formatoAsignatura}}</ion-text>
+      <ion-select [(ngModel)]="mdl_asignatura" (ionChange)="onChange(mdl_alumno)">
+        <ion-select-option *ngFor="let atrib of listaAsignatura" [value]="atrib.NOM_ASIGNATURA">{{atrib.NOM_ASIGNATURA}}</ion-select-option>
+      </ion-select>
       
     </ion-item>
     
@@ -75,10 +81,10 @@
 
     <ion-item class="ion-margin">
       <ion-label position="stacked">Objetivo de la clase</ion-label>
-      <ion-textarea placeholder="Ingrese el texto aquí..."></ion-textarea>
+      <ion-textarea placeholder="Ingrese el texto aquí..." [(ngModel)]="txt_descLeccionario"></ion-textarea>
     </ion-item>
 
-    <ion-button expand="full" shape="round" class="ion-margin">Confirmar</ion-button>
+    <ion-button expand="full" shape="round" class="ion-margin" (click)="confirmaLeccionario()">Confirmar</ion-button>
 
   </ion-card>
 </ion-content>

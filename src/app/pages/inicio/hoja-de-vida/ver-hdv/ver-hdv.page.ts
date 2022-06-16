@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PickerController, ModalController } from '@ionic/angular';
+import { PickerController, ModalController, ToastController } from '@ionic/angular';
+import { ApiService } from 'src/app/sevices/api.service';
+import { Nivel } from 'src/app/interface/nivel';
+import { Curso } from 'src/app/interface/curso';
+import { Alumno } from 'src/app/interface/alumno';
 
 @Component({
   selector: 'app-ver-hdv',
@@ -8,14 +12,25 @@ import { PickerController, ModalController } from '@ionic/angular';
 })
 export class VerHdvPage implements OnInit {
 
-  constructor(public _pickerCtrl: PickerController, public modalController: ModalController) { }
+  constructor(public _pickerCtrl: PickerController, 
+    public modalController: ModalController,
+    public apiService: ApiService,
+    public toastController: ToastController) { }
 
-  formatoNivel ='';
-  formatoCurso ='';
+  listaNivel: Nivel[] = [];
+  listaCursos: Curso[] =[];
+  listaAlumnos: Alumno[] = [];
+  mdl_curso: Curso;
+  mdl_nivel: number;
+  mdl_alumno: Alumno;
+  nivel:Nivel;
+  mostrarCurso: boolean= false;
+  mostrarAlumno: boolean = false;
   formatoAlum ='';
   @ViewChild(ModalController,) modalhdv: ModalController;
 
   ngOnInit() {
+    this.obtenerNIvelApi()
   }
 
   cerrar() {
@@ -25,111 +40,93 @@ export class VerHdvPage implements OnInit {
     });
   }
 
-  async mostrarPickerNivel() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Nivel',
-          options:[
-            { text: 'Prebasica', value:'prebasica'},
-            { text: 'Basica', value:'basica'},
-            { text: 'Media', value:'media'}
-          ]
-        }
+  obtenerNIvelApi(){
+
+    this.apiService.obtenerNiveles().subscribe(data => {
+      for(let elemento in data){
         
-      ],
+        this.listaNivel.push(data[elemento]);        
+      }
+    });    
+
+  }
+
+  onChange(selectedValue){
+    console.log("Selected:",selectedValue);
+    this.mostrarCurso = true;
+    if(this.mostrarCurso === true){
+      this.mostrarAlumno = true;
+    }
+  }
+
+  obtenerCursoApi(){
+    this.listaCursos=[];
+    this.apiService.obtenerCursos(this.mdl_nivel).subscribe(data => {
+      for(let elemento in data){
+        this.listaCursos.push(data[elemento]);}
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.')
+    })
+    ;    
+
+  }
+  obtenerValor(valor){
+    this.mdl_nivel = valor;
+  }
+
+  // obtenerValor(valor){
+  //   this.mdl_nivel = valor;
+  // }
+
+  obtenerAlumnosApi(){
+ 
+    this.listaAlumnos =[];
+    this.apiService.obtenerAlumnos(this.mdl_curso).subscribe(data =>{
+      for(let elemento in data){
+        this.listaAlumnos.push(data[elemento]);       
+      }
+      console.log(data);
+      console.log(this.mdl_curso.ID_CURSO);
+      console.log(this.listaAlumnos);
+      this.apiService.listaAlumnos = this.listaAlumnos;
+      
+      
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.');
+    })
+    
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      position: 'bottom',
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastWithOptions(header, message) {
+    const toast = await this.toastController.create({
+      message: message,
+      icon: 'information-circle',
+      position: 'top',
       buttons: [
-        {
-          text: 'Cancelar',
+       {
+          text: 'Aceptar',
           role: 'cancel',
-          handler: (value) => {
-            console.log('se cacela', value)
-            this.formatoNivel = '';
-            
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoNivel = selected.Nivel.text;
-            
+          handler: () => {
+
           }
         }
       ]
     });
+    await toast.present();
 
-    await picker.present();
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   
-  }
-
-  async mostrarPickerCurso() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Curso',
-          options:[
-            { text: 'IV° A', value:'IVa'},
-            { text: 'IV° B', value:'IVb'},
-            { text: 'IV° C', value:'IVc'}
-          ]
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (value) => {
-            this.formatoCurso = '';
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoCurso = selected.Curso.text;
-          }
-        }
-      ]
-    });
-
-    await picker.present();
-  
-  }
-
-  async mostrarPickerAlumno() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Alumno',
-          options:[
-            { text: 'David Arellano', value:'David Arellano'},
-            { text: 'Brayan Cortés', value:'Brayan Cortes'},
-            { text: 'Gabriel Suazo', value:'Gabriel Suazo'}
-          ]
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (value) => {
-            this.formatoAlum = '';
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoAlum = selected.Alumno.text;
-          }
-        }
-      ]
-    });
-
-    await picker.present();
-
-  }
-
 }
 

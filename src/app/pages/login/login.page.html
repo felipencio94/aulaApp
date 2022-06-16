@@ -19,18 +19,18 @@
       <ion-item class="ion-margin">
         
         <ion-label position="floating" >Usuario (RUN sin punto ni guión)</ion-label>
-        <ion-input [(ngModel)]="usuarioForm.run"></ion-input>
+        <ion-input [(ngModel)]="usuarioForm.run" type="tel" maxlength="10"></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin">
         <ion-label position="floating" >Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="usuarioForm.password"></ion-input>
+        <ion-input type="password" maxlength="100" [(ngModel)]="usuarioForm.password"></ion-input>
       </ion-item>
 
-      <ion-item class="ion-margin">
+      <!-- <ion-item class="ion-margin">
         <ion-label>Recordar Usuario</ion-label>
         <ion-checkbox slot="end" value="Recordar usuario"></ion-checkbox>
-      </ion-item>      
+      </ion-item>       -->
     </ion-card-content>
 
   </ion-card>
@@ -38,8 +38,8 @@
 
   <ion-button expand="full" color="warning"  size="large" class="pulse ion-margin" (click)="validarLogin()" > <ion-icon name="log-in-outline" slot="start"></ion-icon>
     Ingresar</ion-button>
-  <ion-button expand="full" color="light" size="large"   class="pulse ion-margin"  >Recuperar contraseña</ion-button>
-  <p> v1.0 - Prototipo</p>
+  <ion-button expand="full" color="light" size="large"   class="pulse ion-margin" (click)="recuperarContrasena()" >Recuperar contraseña</ion-button>
+
   <!--
   <ion-button (click)="mostrarInfoButton()">prueba lista api</ion-button>
   <ion-list lines="full" class="ion-margin" *ngIf="mostrarInfo">
@@ -52,14 +52,6 @@
     </ion-item>
   </ion-list>
   -->
-
-  <ion-button expand="full" color="light" size="large" class="pulse ion-margin" (click)="mostrarInfoButton()">Niveles</ion-button>
-  <ion-list lines="full" class="ion-margin" *ngIf="mostrarInfo">
-    <ion-item  *ngFor="let x of listaNiveles" detail>
-      <ion-card-header>
-        <ion-card-title>Nivel {{x.DESCRIPCION}}</ion-card-title>
-
-      </ion-card-header>
-    </ion-item>
-  </ion-list>
+  <br>
+  <p> v1.0 - Prototipo</p>
 </ion-content>
