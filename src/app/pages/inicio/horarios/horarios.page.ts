@@ -11,6 +11,8 @@ import { Curso } from 'src/app/interface/curso';
 })
 export class HorariosPage implements OnInit {
 
+  mostrarCurso: boolean=false; 
+
   listaNivel: Nivel[] = [];
   listaCursos: Curso[] =[];
   mdl_curso: Curso;
@@ -39,6 +41,7 @@ export class HorariosPage implements OnInit {
 
   onChange(selectedValue){
     console.log("Selected:",selectedValue);
+    this.mostrarCurso = true;
   }
 
   obtenerCursoApi(){

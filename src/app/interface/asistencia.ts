@@ -1,4 +1,4 @@
-export interface Alumno {
+export interface Asistencia {
     RUNALUMNO?: string;
     NOMBREALUMNO?: string;
     ESTADO?: string;
@@ -11,5 +11,14 @@ export interface Alumno {
     FECHANACIMIENTO?: string;
     EDAD?: number;
     PUEBLOORIGINARIO?: string;
+    
+    
+    ID_ASISTENCIA?: number;
+    FECHA_CREACION?: string;
+    FECHA_ASISTENCIA?: string;
+    PRESENTE?: boolean;
+    USR_CREACION?: string;
+    RUN?: number;
     ID_CURSO?: number;
+    PRESENTE_NUM?:Number;
 }

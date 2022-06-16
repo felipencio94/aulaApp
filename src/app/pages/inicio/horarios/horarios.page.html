@@ -22,7 +22,7 @@
       
     </ion-item>
 
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
       <ion-label>Curso</ion-label>
       <ion-select name ="select_curso" [(ngModel)]="mdl_curso"  >
         <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>

@@ -1,4 +1,4 @@
-export interface Alumno {
+export interface Observacion {
     RUNALUMNO?: string;
     NOMBREALUMNO?: string;
     ESTADO?: string;
@@ -11,5 +11,13 @@ export interface Alumno {
     FECHANACIMIENTO?: string;
     EDAD?: number;
     PUEBLOORIGINARIO?: string;
-    ID_CURSO?: number;
-}
+    
+
+    ID_OBS?:number;
+    TIPO?:string
+    DESC_OBS?:string;
+    FECHA_INS?:string;
+    USR_CREACION?:string;
+    RUN?:number;
+    ID_CURSO?:number;
+    }

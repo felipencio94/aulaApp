@@ -25,12 +25,18 @@
       
     </ion-item>
 
-    <ion-item class="ion-margin">
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
       <ion-label>Curso</ion-label>
-      <ion-select name ="select_curso" [(ngModel)]="mdl_curso"  >
-        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
+      <ion-select name ="select_curso"  [(ngModel)]="mdl_curso" >
+        <ion-select-option  *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
       </ion-select>
     </ion-item>
+    <!-- <ion-item class="ion-margin">
+      <ion-label>Asignatura</ion-label>
+      <ion-select name ="select_asignatura"  [(ngModel)]="mdl_asignatura" >
+        <ion-select-option  *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
+      </ion-select>
+    </ion-item> -->
 
     <!--Boton de fecha sin modal-->
     <!--<ion-item (click) ="mostrarPickerFecha = !mostrarPickerFecha">
@@ -52,13 +58,13 @@
 
     <!--Boton de fecha con modal-->
 
-    <ion-item id="open-modal" class="ion-margin">
+    <ion-item class="ion-margin">
       <ion-icon icon="calendar-outline" slot ="start"></ion-icon>
       <ion-label>Fecha</ion-label>
       <ion-text slot="end">{{formato}}</ion-text>
     </ion-item>
 
-    <ion-modal trigger="open-modal" class="ion-modal">
+    <!-- <ion-modal trigger="open-modal" class="ion-modal">
       <ng-template>
         <ion-content class="ion-content-fecha">
           <ion-datetime #datetime presentation="datetime" [value]="dateValue" size="cover"(ionChange)="fechaCambiada(datetime.value)"(ionCancel)="mostrarPickerFecha = false;">
@@ -69,9 +75,9 @@
           </ion-datetime>
         </ion-content>
       </ng-template>
-    </ion-modal>
+    </ion-modal> -->
 
-    <ion-button expand="block" shape="round" strong="true" class="ion-margin" routerLink="/inicio/asistencia/asistencia-alumnos">Ir</ion-button>
+    <ion-button expand="block" shape="round" strong="true" class="ion-margin" (click)="obtenerAlumnosApi()">Ir</ion-button>
 
 
   </ion-card>

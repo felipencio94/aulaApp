@@ -1,5 +1,5 @@
 export interface Curso {
-    ID_CURSO: number,
-    ID_NIVEL: number,
-    COMPUESTO: string,
+    ID_CURSO?: number,
+    ID_NIVEL?: number,
+    COMPUESTO?: string,
 }

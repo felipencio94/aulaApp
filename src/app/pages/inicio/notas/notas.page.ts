@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/sevices/api.service';
 import { Nivel } from 'src/app/interface/nivel';
 import { Curso } from 'src/app/interface/curso';
+import { Alumno } from 'src/app/interface/alumno';
 
 @Component({
   selector: 'app-notas',
@@ -13,8 +14,14 @@ export class NotasPage implements OnInit {
 
   listaNivel: Nivel[] = [];
   listaCursos: Curso[] =[];
+  listaAlumnos: Alumno[] = [];
   mdl_curso: Curso;
   mdl_nivel: number;
+  mdl_alumno: Alumno;
+  mostrarCurso: boolean= false;
+  mostrarAlumno: boolean= false;
+  mostrarAsignatura: boolean= false;
+  mostrarPeriodo: boolean= false;
   nivel:Nivel;
   formatoAsignatura: string = '';
   formatoAlum: string = '';
@@ -42,6 +49,12 @@ export class NotasPage implements OnInit {
 
   onChange(selectedValue){
     console.log("Selected:",selectedValue);
+    this.mostrarCurso = true;
+    if(this.mostrarCurso === true){
+      this.mostrarAlumno = true;
+      this.mostrarAsignatura = true;
+      this.mostrarPeriodo = true;
+    }
   }
 
   obtenerCursoApi(){
@@ -57,6 +70,25 @@ export class NotasPage implements OnInit {
   }
   obtenerValor(valor){
     this.mdl_nivel = valor;
+  }
+
+  obtenerAlumnosApi(){
+ 
+    this.listaAlumnos =[];
+    this.apiService.obtenerAlumnos(this.mdl_curso).subscribe(data =>{
+      for(let elemento in data){
+        this.listaAlumnos.push(data[elemento]);       
+      }
+      console.log(data);
+      console.log(this.mdl_curso.ID_CURSO);
+      console.log(this.listaAlumnos);
+      this.apiService.listaAlumnos = this.listaAlumnos;
+      
+      
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.');
+    })
+    
   }
 
   async presentToast(message) {

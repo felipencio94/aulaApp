@@ -87,6 +87,12 @@ const routes: Routes = [
     redirectTo: 'cambiar',
     pathMatch: 'full'
   },
+
+  {
+    path: 'recuperar',
+    redirectTo: 'recuperar',
+    pathMatch: 'full'
+  },
   {
     path: '**',
     redirectTo: 'e404',
@@ -113,6 +119,10 @@ const routes: Routes = [
   {
     path: 'cambiar',
     loadChildren: () => import('./pages/cambiar/cambiar.module').then( m => m.CambiarPageModule)
+  },
+  {
+    path: 'recuperar',
+    loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
 
 ];

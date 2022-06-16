@@ -3,6 +3,7 @@ import { PickerController, ModalController, ToastController } from '@ionic/angul
 import { ApiService } from 'src/app/sevices/api.service';
 import { Nivel } from 'src/app/interface/nivel';
 import { Curso } from 'src/app/interface/curso';
+import { Alumno } from 'src/app/interface/alumno';
 
 @Component({
   selector: 'app-ver-hdv',
@@ -18,10 +19,13 @@ export class VerHdvPage implements OnInit {
 
   listaNivel: Nivel[] = [];
   listaCursos: Curso[] =[];
+  listaAlumnos: Alumno[] = [];
   mdl_curso: Curso;
   mdl_nivel: number;
+  mdl_alumno: Alumno;
   nivel:Nivel;
-
+  mostrarCurso: boolean= false;
+  mostrarAlumno: boolean = false;
   formatoAlum ='';
   @ViewChild(ModalController,) modalhdv: ModalController;
 
@@ -41,9 +45,7 @@ export class VerHdvPage implements OnInit {
     this.apiService.obtenerNiveles().subscribe(data => {
       for(let elemento in data){
         
-        this.listaNivel.push(data[elemento]);
-        console.log(data);
-        
+        this.listaNivel.push(data[elemento]);        
       }
     });    
 
@@ -51,6 +53,10 @@ export class VerHdvPage implements OnInit {
 
   onChange(selectedValue){
     console.log("Selected:",selectedValue);
+    this.mostrarCurso = true;
+    if(this.mostrarCurso === true){
+      this.mostrarAlumno = true;
+    }
   }
 
   obtenerCursoApi(){
@@ -66,6 +72,29 @@ export class VerHdvPage implements OnInit {
   }
   obtenerValor(valor){
     this.mdl_nivel = valor;
+  }
+
+  // obtenerValor(valor){
+  //   this.mdl_nivel = valor;
+  // }
+
+  obtenerAlumnosApi(){
+ 
+    this.listaAlumnos =[];
+    this.apiService.obtenerAlumnos(this.mdl_curso).subscribe(data =>{
+      for(let elemento in data){
+        this.listaAlumnos.push(data[elemento]);       
+      }
+      console.log(data);
+      console.log(this.mdl_curso.ID_CURSO);
+      console.log(this.listaAlumnos);
+      this.apiService.listaAlumnos = this.listaAlumnos;
+      
+      
+    }, err =>{
+      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.');
+    })
+    
   }
 
   async presentToast(message) {
@@ -98,39 +127,6 @@ export class VerHdvPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  async mostrarPickerAlumno() {
-    const picker = await this._pickerCtrl.create({
-      columns: [
-        {
-          name:'Alumno',
-          options:[
-            { text: 'David Arellano', value:'David Arellano'},
-            { text: 'Brayan Cortés', value:'Brayan Cortes'},
-            { text: 'Gabriel Suazo', value:'Gabriel Suazo'}
-          ]
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (value) => {
-            this.formatoAlum = '';
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: (selected) => {
-            console.log('tiene que acepta', selected);
-            this.formatoAlum = selected.Alumno.text;
-          }
-        }
-      ]
-    });
-
-    await picker.present();
-
-  }
-
+  
 }
 
