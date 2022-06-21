@@ -24,6 +24,7 @@ export class RecuperarPage implements OnInit {
     mail:'',
     codigoOtp:''
   }
+  
   lista: [{}];
   constructor(private router: Router,
     private toastController: ToastController,
@@ -67,8 +68,9 @@ export class RecuperarPage implements OnInit {
                 this.codigoOtp = data['outBinds'].resultado;
                 this.apiService.enviarCorreo(this.nombres, this.mail, this.codigoOtp).subscribe(data=>{
                   console.log('correo enviado');
-                  this.mostrarInputCodigo = true;
-                  this.ocultarEnviarMail = true;
+                    this.mostrarInputCodigo = true;
+                    this.ocultarEnviarMail = true;
+
                 })               
               }              
             })        

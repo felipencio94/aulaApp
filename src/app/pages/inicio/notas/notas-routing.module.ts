@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'mostrar-notas',
     loadChildren: () => import('./mostrar-notas/mostrar-notas.module').then( m => m.MostrarNotasPageModule)
+  },
+  {
+    path: 'ingresar-notas',
+    loadChildren: () => import('./ingresar-notas/ingresar-notas.module').then( m => m.IngresarNotasPageModule)
   }
 ];
 

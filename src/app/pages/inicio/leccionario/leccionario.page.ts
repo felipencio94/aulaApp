@@ -20,6 +20,7 @@ export class LeccionarioPage implements OnInit {
   listaLeccionario: Leccionario[] = [];
   mdl_curso: Curso;
   mdl_nivel: number;
+  mdl_asignatura:any;
   mostrarCurso: boolean= false; 
   mostrarAsignatura: boolean = false;
   mostrarPickerFecha = false;
@@ -29,7 +30,9 @@ export class LeccionarioPage implements OnInit {
   formato = '';
   fechaSys='';
   nivel:Nivel;
+  usr_creacion:string;
   formatoAsignatura = '';
+  lista: [{}];
   @ViewChild(IonDatetime) datetime: IonDatetime
 
   constructor( public _pickerCtrl: PickerController,
@@ -38,6 +41,12 @@ export class LeccionarioPage implements OnInit {
       this.fechaSyst();
       this.setHoy();
       console.log(this.formato);
+      this.apiService.recuperarDatosUsuario(this.apiService.usuarioAuth).subscribe(data=>{
+      this.lista = [this.apiService.usuarioLogueado];
+      console.log(this.apiService.usuarioLogueado.runUsuario);
+
+      });
+      this.usr_creacion = this.apiService.usuarioLogueado.runUsuario;
     
   }
 
@@ -46,11 +55,11 @@ export class LeccionarioPage implements OnInit {
   }
 
   setHoy() {
-    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd')), ' dd-MM-yyyy');
+    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd')), 'dd-MM-yyyy');
   }
 
   fechaSyst(){
-    this.fechaSys = format(parseISO(format(new Date(),  'yyyy-MM-dd')), ' dd-MM-yyyy');
+    this.fechaSys = format(parseISO(format(new Date(),  'yyyy-MM-dd')), 'dd-MM-yyyy');
   }
 
   fechaCambiada(value) {
@@ -104,6 +113,7 @@ export class LeccionarioPage implements OnInit {
   }
 
   obtenerAsignaturaApi(){
+
     this.listaAsignatura =[];
     this.apiService.obtenerAsignatura(this.mdl_curso).subscribe(data =>{
       for(let elemento in data){
@@ -134,7 +144,7 @@ export class LeccionarioPage implements OnInit {
     const toast = await this.toastController.create({
       position: 'bottom',
       message: message,
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }
@@ -164,35 +174,44 @@ export class LeccionarioPage implements OnInit {
 
   confirmaLeccionario(){
     this.txt_descLeccionario;
-    for(let atrib of this.listaLeccionario){
-      atrib.DESCRIPCION = this.txt_descLeccionario;
-      this.txt_descLeccionario = atrib.DESCRIPCION;
-      atrib.FECHA = this.fechaSys;
-      this.fechaSys = atrib.FECHA;
-      atrib.FECHA_CREACION = this.formato;
-      this.formato = atrib.FECHA_CREACION;
-      //usuario creador obs
-      atrib.ID_ASIGNATURA = this.id_asignatura;
-      this.id_asignatura = atrib.ID_ASIGNATURA;
-      //firma
-      //fecha modificacion
-      //usuario modificacion
-      //fecha firma
-    }
+    this.fechaSys;
+    this.formato;
+    this.usr_creacion;
+    this.mdl_asignatura;
+    // for(let atrib of this.listaLeccionario){
+    //   atrib.DESCRIPCION = this.txt_descLeccionario;
+    //   this.txt_descLeccionario = atrib.DESCRIPCION;
+    //   atrib.FECHA = this.fechaSys;
+    //   this.fechaSys = atrib.FECHA;
+    //   atrib.FECHA_CREACION = this.formato;
+    //   this.formato = atrib.FECHA_CREACION;
+    //   //usuario creador obs
+    //   atrib.ID_ASIGNATURA = this.id_asignatura;
+    //   this.id_asignatura = atrib.ID_ASIGNATURA;
+    //   //firma
+    //   //fecha modificacion
+    //   //usuario modificacion
+    //   //fecha firma
+    // }
     //id_leccion
     console.log('desc leccionario: ' + this.txt_descLeccionario);//descripcion  
     console.log('fecha sys: ' + this.fechaSys);//fecha sys
     console.log('fecha leccionario: ' + this.formato);//fecha leccionario
-    // console.log('usuario creador observacion: ' + this.usr_creacion);//usuario creador observacion
-    console.log('id_asignatura: ' + this.id_asignatura);//id asignatura
+    console.log('usuario creador observacion: ' + this.usr_creacion);//usuario creador observacion
+    console.log('id_asignatura: ' + this.mdl_asignatura);//id asignatura
     // console.log('id curso: ' + this.id_curso);//firma (nombre usuario?)
     // console.log('id curso: ' + this.id_curso);//fecha modificacion
     // console.log('id curso: ' + this.id_curso);//usuario modificacion
     // console.log('id curso: ' + this.id_curso);//fecha firma
     console.log(this.listaLeccionario);
-    
-    
-    
+    this.apiService.confirmarLeccionario(this.txt_descLeccionario, this.formato, this.usr_creacion, this.mdl_asignatura).subscribe(data=>{
+      console.log(data);
+      this.presentToast('Exito! Leccionario registrado correctamente.');
+      this.txt_descLeccionario= '';
+      this.formato= '';
+      this.usr_creacion= '';
+      this.mdl_asignatura= 0;
+    })
     
   }
 }

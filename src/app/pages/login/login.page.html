@@ -11,7 +11,7 @@
  
   <ion-card class="ion-margin">
     <ion-card-header>
-    <ion-card-title style="text-align: center;">Inicio de sesión</ion-card-title>
+    <ion-card-title class="title">Inicio de sesión</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
@@ -25,33 +25,13 @@
       <ion-item class="ion-margin">
         <ion-label position="floating" >Contraseña</ion-label>
         <ion-input type="password" maxlength="100" [(ngModel)]="usuarioForm.password"></ion-input>
-      </ion-item>
-
-      <!-- <ion-item class="ion-margin">
-        <ion-label>Recordar Usuario</ion-label>
-        <ion-checkbox slot="end" value="Recordar usuario"></ion-checkbox>
-      </ion-item>       -->
+      </ion-item>   
     </ion-card-content>
 
+    
+    <ion-button expand="full" color="warning"  size="large" class="pulse ion-margin" (click)="validarLogin()" > <ion-icon name="log-in-outline" slot="start"></ion-icon>Ingresar</ion-button>
+    <ion-button expand="full" color="light" size="large"  (click)="recuperarContrasena()" class="pulse ion-margin"  >Recuperar contraseña</ion-button>
+    <br><p> v1.0 - Prototipo</p>
   </ion-card>
 
-
-  <ion-button expand="full" color="warning"  size="large" class="pulse ion-margin" (click)="validarLogin()" > <ion-icon name="log-in-outline" slot="start"></ion-icon>
-    Ingresar</ion-button>
-  <ion-button expand="full" color="light" size="large"   class="pulse ion-margin" (click)="recuperarContrasena()" >Recuperar contraseña</ion-button>
-
-  <!--
-  <ion-button (click)="mostrarInfoButton()">prueba lista api</ion-button>
-  <ion-list lines="full" class="ion-margin" *ngIf="mostrarInfo">
-    <ion-item *ngFor="let x of listaUsuarios" detail>
-      <ion-card-header>
-        <ion-card-title>Rut: {{x.RUN}}</ion-card-title>
-        <ion-card-title>Codigo Usuario: {{x.COD_USUARIO}}</ion-card-title>
-        <ion-card-title>Email: {{x.MAIL}}</ion-card-title>
-      </ion-card-header>
-    </ion-item>
-  </ion-list>
-  -->
-  <br>
-  <p> v1.0 - Prototipo</p>
 </ion-content>

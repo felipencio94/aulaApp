@@ -11,6 +11,14 @@ const routes: Routes = [
   {
     path: 'asistencia-alumnos',
     loadChildren: () => import('./asistencia-alumnos/asistencia-alumnos.module').then( m => m.AsistenciaAlumnosPageModule)
+  },
+  {
+    path: 'ver-asistencia',
+    loadChildren: () => import('./ver-asistencia/ver-asistencia.module').then( m => m.VerAsistenciaPageModule)
+  },
+  {
+    path: 'ingresar-asistencia',
+    loadChildren: () => import('./ingresar-asistencia/ingresar-asistencia.module').then( m => m.IngresarAsistenciaPageModule)
   }
 ];
 

@@ -32,16 +32,16 @@
 
     <ion-item class="ion-margin" *ngIf="mostrarAlumno">
       <ion-label>Alumno</ion-label>
-      <ion-select name ="select_alumno"  [(ngModel)]="mdl_alumno" >
-        <ion-select-option *ngFor="let alumno of listaAlumnos" [value]="alumno.NOMBREALUMNO">{{alumno.NOMBREALUMNO}}</ion-select-option>
+      <ion-select name ="select_alumno" [(ngModel)]="mdl_alumno" (ionChange)="onChange(obtenerObservacionApi())">
+        <ion-select-option *ngFor="let x of listaAlumnos" [value]="x.RUNALUMNO">{{x.NOMBREALUMNO}}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-card>
 
-  <ion-button expand="full" shape="round" class="ion-margin" id="open-modal">Mostrar Hoja de Vida</ion-button>
+  <ion-button expand="full" shape="round" class="ion-margin" id="open-modal-observacion" >Mostrar Hoja de Vida</ion-button>
   
 
-  <ion-modal trigger="open-modal" #modalhdv>
+  <ion-modal trigger="open-modal-observacion" #modalhdv>
     <ng-template>
       <ion-content>
         <ion-grid class="ion-text-center">
@@ -49,8 +49,8 @@
           <ion-row class="ion-margin">
             <ion-col>
               <ion-title>
-                <ion-text color="default">
-                  Observaciones Alumno
+                <ion-text color="default" *ngFor="let x of listaObservacion">
+                  Observaciones {{x.NOMBREALUMNO}}
                 </ion-text>
               </ion-title>
             </ion-col>
@@ -58,28 +58,30 @@
       
           <ion-row class="header-row">
             <ion-col>
-              <ion-text>Positivas</ion-text>
+              <ion-text>Tipo</ion-text>
             </ion-col>
       
       
             <ion-col>
-              <ion-text>Negativas</ion-text>
+              <ion-text>Observacion</ion-text>
             </ion-col>
           </ion-row>
       
       
-          <ion-row>
-            <ion-col class="ion-text-justify">
+          <ion-row class="ion-margin" *ngFor="let x of listaObservacion">
+            <ion-col>
               <ion-text >
-                  15/03/2022 - Lenguaje - Alumno se destaca por ayudar a sus compañeros
+                  {{x.TIPO}}
+                  
               </ion-text>
             </ion-col>
-        
-              <ion-col class="ion-text-justify"> 
-                <ion-text >
-                  05/05/2022 - Matemática - Alumno le dice "No sea asi joven" al profesor. Se le envía a inspectoría
-                </ion-text>
-              </ion-col>
+
+            <ion-col>
+              <ion-text>
+                  {{x.FECHA_INS}} - {{x.DESCRIPCION_OBSERVACION}}
+                  
+              </ion-text>
+            </ion-col>
           </ion-row>
             
         </ion-grid>

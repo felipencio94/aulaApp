@@ -1,15 +1,16 @@
 .header{
-    background-color: rgb(199, 107, 26);
-    height: 180px;
+    background-color: rgb(52, 171, 28);
+    height: 100px;
     padding-top: 1px;
-
+ 
 }
-.header h2{
-    color: #ffff;
+.lbl_nombre{
     font-weight: bold;
     text-align: center;
-}
+    font-size: large;
+    margin-top: 25%;
 
+}
 
 .imagen-circular{
     height: 130px;
@@ -36,3 +37,4 @@
     justify-content: center;
     margin-top: -76px;
 }
+

@@ -14,7 +14,16 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-
+  {
+    path: 'recuperar',
+    redirectTo: 'recuperar',
+    pathMatch: 'full'
+  },
+  {
+    path: 'cambiar',
+    redirectTo: 'cambiar',
+    pathMatch: 'full'
+  },
   {
     path: 'inicio',
     redirectTo: 'inicio',
@@ -43,6 +52,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'inicio/notas/ingresar-notas',
+    redirectTo: 'inicio/notas/ingresar-notas',
+    pathMatch: 'full'
+  },
+
+  {
     path: 'inicio/horarios',
     redirectTo: 'inicio/horarios',
     pathMatch: 'full'
@@ -57,6 +72,16 @@ const routes: Routes = [
   {
     path: 'inicio/asistencia/asistencia-alumnos',
     redirectTo: 'inicio/asistencia/asistencia-alumnos',
+    pathMatch: 'full'
+  },
+  {
+    path: 'inicio/asistencia/ingresar-asistencia',
+    redirectTo: 'inicio/asistencia/ingresar-asistencia',
+    pathMatch: 'full'
+  },
+  {
+    path: 'inicio/asistencia/ver-asistencia',
+    redirectTo: 'inicio/asistencia/ver-asistencia',
     pathMatch: 'full'
   },
 
@@ -79,18 +104,6 @@ const routes: Routes = [
   {
     path: 'inicio/hoja-de-vida/ver-hdv',
     redirectTo: 'inicio/hoja-de-vida/ver-hdv',
-    pathMatch: 'full'
-  },
-
-  {
-    path: 'cambiar',
-    redirectTo: 'cambiar',
-    pathMatch: 'full'
-  },
-
-  {
-    path: 'recuperar',
-    redirectTo: 'recuperar',
     pathMatch: 'full'
   },
   {
@@ -124,6 +137,7 @@ const routes: Routes = [
     path: 'recuperar',
     loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
+
 
 ];
 

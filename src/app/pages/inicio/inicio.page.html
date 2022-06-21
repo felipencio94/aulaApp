@@ -11,8 +11,8 @@
 
 
 <ion-content>
-  <ion-chip class="ion-margin-end" (click)="mostrarPerfilUsuario()">
-    <ion-avatar >
+  <ion-chip class="ion-margin" (click)="mostrarPerfilUsuario()">
+    <ion-avatar>
       <ion-icon name="person" size="large"></ion-icon>
     </ion-avatar>
     <ion-label  *ngFor= "let x of lista">{{x.nombreCompleto}}</ion-label>
@@ -27,7 +27,7 @@
       <ion-list >
         <ion-item detail button (click)="irAsistencia()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
-            <ion-icon name="checkmark" size="large"></ion-icon>
+            <ion-icon name="checkmark" size="large" color="success"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
             Asistencia            
@@ -36,7 +36,7 @@
 
         <ion-item detail button (click)="irLeccionario()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
-            <ion-icon name="pencil" size="large"></ion-icon>
+            <ion-icon name="pencil" size="large" color="warning"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
             Leccionario
@@ -45,7 +45,7 @@
 
         <ion-item detail button (click)="irHojaDeVida()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
-            <ion-icon name="newspaper" size="large"></ion-icon>
+            <ion-icon name="newspaper" size="large" color="medium"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
             Hoja de Vida
@@ -54,7 +54,7 @@
 
         <ion-item detail button (click)="irNotas()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
-            <ion-icon name="stats-chart" size="large"></ion-icon>
+            <ion-icon name="stats-chart" size="large" color="primary"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
             Notas
@@ -63,7 +63,7 @@
 
         <ion-item detail button (click)="irHorarios()">
           <ion-thumbnail slot="start" style="padding-top: 8px;">
-            <ion-icon name="alarm" size="large"></ion-icon>
+            <ion-icon name="alarm" size="large" color="secondary"></ion-icon>
           </ion-thumbnail>
           <ion-card-title>
             Horarios

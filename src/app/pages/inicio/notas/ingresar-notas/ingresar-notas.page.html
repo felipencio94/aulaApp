@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Ingresar Notas</ion-title>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="stats-chart" size="large"></ion-icon>
+    </ion-thumbnail>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item class="ion-margin">
+      
+      <ion-label>Nivel</ion-label>
+      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (ionChange)="onChange(obtenerCursoApi())" >
+        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL">{{nivel.DESCRIPCION}} </ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
+      <ion-label>Curso</ion-label>
+      <ion-select name ="select_curso" [(ngModel)]="mdl_curso" (ionChange)="onChange(obtenerAlumnosApi())" >
+        <ion-select-option *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+
+    <ion-item class="ion-margin" *ngIf="mostrarAlumno">
+      <ion-label>Alumno</ion-label>
+      <ion-select name ="select_alumno"  [(ngModel)]="mdl_alumno" >
+        <ion-select-option *ngFor="let alumno of listaAlumnos" [value]="alumno.NOMBREALUMNO">{{alumno.NOMBREALUMNO}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="ion-margin" *ngIf="mostrarAsignatura">
+      <ion-label>Asignatura</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoAsignatura}}</ion-text>
+      
+    </ion-item>
+
+    <ion-item class="ion-margin" *ngIf="mostrarPeriodo">
+      <ion-label>Periodo</ion-label>
+      <ion-text style="margin-right: 20%;">{{formatoPeriodo}}</ion-text>
+     
+    </ion-item>
+
+    <ion-button expand="full" shape="round" class="ion-margin" strong="true" >Ver notas</ion-button>
+  </ion-card>
+</ion-content>

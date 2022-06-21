@@ -54,19 +54,20 @@ export class PerfilUsuarioPage implements OnInit {
   }
 
   logOut(){
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
+    
   }
 
-  async tomarFoto(){
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri
-    });
-    var imageUrl = image.webPath;
+  // async tomarFoto(){
+  //   const image = await Camera.getPhoto({
+  //     quality: 90,
+  //     allowEditing: false,
+  //     resultType: CameraResultType.Uri
+  //   });
+  //   var imageUrl = image.webPath;
 
-    this.ruta = imageUrl;
+  //   this.ruta = imageUrl;
 
-  }
+  // }
 
 }

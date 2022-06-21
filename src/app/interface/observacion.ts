@@ -1,5 +1,5 @@
 export interface Observacion {
-    RUNALUMNO?: string;
+    
     NOMBREALUMNO?: string;
     ESTADO?: string;
     CURSOACTUAL?: string;

@@ -49,4 +49,5 @@ export class InicioPage implements OnInit {
     this.router.navigate(['inicio/horarios'])
   }
 
+  
 }

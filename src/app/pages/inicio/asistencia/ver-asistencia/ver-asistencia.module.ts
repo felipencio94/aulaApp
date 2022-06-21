@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CambiarPageRoutingModule } from './cambiar-routing.module';
+import { VerAsistenciaPageRoutingModule } from './ver-asistencia-routing.module';
 
-import { CambiarPage } from './cambiar.page';
-
+import { VerAsistenciaPage } from './ver-asistencia.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CambiarPageRoutingModule
+    VerAsistenciaPageRoutingModule
   ],
-  declarations: [CambiarPage]
+  declarations: [VerAsistenciaPage]
 })
-export class CambiarPageModule {}
+export class VerAsistenciaPageModule {}

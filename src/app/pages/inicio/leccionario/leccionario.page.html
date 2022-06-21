@@ -34,7 +34,7 @@
     <ion-item class="ion-margin" *ngIf="mostrarAsignatura">
       <ion-label>Asignatura</ion-label>
       <ion-select [(ngModel)]="mdl_asignatura" (ionChange)="onChange(mdl_alumno)">
-        <ion-select-option *ngFor="let atrib of listaAsignatura" [value]="atrib.NOM_ASIGNATURA">{{atrib.NOM_ASIGNATURA}}</ion-select-option>
+        <ion-select-option *ngFor="let atrib of listaAsignatura" [value]="atrib.ID_ASIGNATURA">{{atrib.NOM_ASIGNATURA}}</ion-select-option>
       </ion-select>
       
     </ion-item>

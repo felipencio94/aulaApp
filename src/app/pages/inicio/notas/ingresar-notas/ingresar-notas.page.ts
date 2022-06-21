@@ -1,45 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PickerController, ModalController, ToastController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/sevices/api.service';
 import { Nivel } from 'src/app/interface/nivel';
 import { Curso } from 'src/app/interface/curso';
 import { Alumno } from 'src/app/interface/alumno';
-import { Observacion } from 'src/app/interface/observacion';
 
 @Component({
-  selector: 'app-ver-hdv',
-  templateUrl: './ver-hdv.page.html',
-  styleUrls: ['./ver-hdv.page.scss'],
+  selector: 'app-ingresar-notas',
+  templateUrl: './ingresar-notas.page.html',
+  styleUrls: ['./ingresar-notas.page.scss'],
 })
-export class VerHdvPage implements OnInit {
-
-  constructor(public _pickerCtrl: PickerController, 
-    public modalController: ModalController,
-    public apiService: ApiService,
-    public toastController: ToastController) { }
+export class IngresarNotasPage implements OnInit {
 
   listaNivel: Nivel[] = [];
   listaCursos: Curso[] =[];
   listaAlumnos: Alumno[] = [];
-  listaObservacion: Observacion[] = [];
   mdl_curso: Curso;
   mdl_nivel: number;
-  mdl_alumno: string;
-  nivel:Nivel;
+  mdl_alumno: Alumno;
   mostrarCurso: boolean= false;
-  mostrarAlumno: boolean = false;
-  formatoAlum ='';
-  @ViewChild(ModalController,) modalhdv: ModalController;
+  mostrarAlumno: boolean= false;
+  mostrarAsignatura: boolean= false;
+  mostrarPeriodo: boolean= false;
+  nivel:Nivel;
+  formatoAsignatura: string = '';
+  formatoAlum: string = '';
+  formatoPeriodo: string = '';
+
+  constructor(public apiService: ApiService,
+    public toastController: ToastController) { }
 
   ngOnInit() {
-    this.obtenerNIvelApi()
-  }
-
-  cerrar() {
-
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.obtenerNIvelApi();
   }
 
   obtenerNIvelApi(){
@@ -47,7 +39,9 @@ export class VerHdvPage implements OnInit {
     this.apiService.obtenerNiveles().subscribe(data => {
       for(let elemento in data){
         
-        this.listaNivel.push(data[elemento]);        
+        this.listaNivel.push(data[elemento]);
+        console.log(data);
+        
       }
     });    
 
@@ -55,15 +49,13 @@ export class VerHdvPage implements OnInit {
 
   onChange(selectedValue){
     console.log("Selected:",selectedValue);
-    console.log(this.listaObservacion);
-    
     this.mostrarCurso = true;
     if(this.mostrarCurso === true){
       this.mostrarAlumno = true;
-
+      this.mostrarAsignatura = true;
+      this.mostrarPeriodo = true;
     }
   }
-
 
   obtenerCursoApi(){
     this.listaCursos=[];
@@ -80,10 +72,6 @@ export class VerHdvPage implements OnInit {
     this.mdl_nivel = valor;
   }
 
-  // obtenerValor(valor){
-  //   this.mdl_nivel = valor;
-  // }
-
   obtenerAlumnosApi(){
  
     this.listaAlumnos =[];
@@ -95,28 +83,12 @@ export class VerHdvPage implements OnInit {
       console.log(this.mdl_curso.ID_CURSO);
       console.log(this.listaAlumnos);
       this.apiService.listaAlumnos = this.listaAlumnos;
-      // this.listaObservacion = this.listaAlumnos;
       
       
     }, err =>{
       this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.');
     })
     
-  }
-
-  obtenerObservacionApi(){
-    this.listaObservacion = [];
-    this.apiService.obtenerObservacion(this.mdl_alumno).subscribe(data =>{
-      for(let elemento in data){
-        this.listaObservacion.push(data[elemento]);
-        console.log(data[elemento]);
-        console.log(this.listaObservacion);        
-      }
-      
-      
-    },err =>{      
-      this.presentToastWithOptions('Sin resultados','La búsqueda no arrojó resultados.')
-    });
   }
 
   async presentToast(message) {
@@ -149,6 +121,4 @@ export class VerHdvPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  
 }
-

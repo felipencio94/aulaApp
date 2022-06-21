@@ -1,26 +1,24 @@
-<!-- <app-header titulo="modificar contraseña"></app-header> -->
-
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start" >
       <ion-back-button defaultHref="/" color="primary" mode="md">
-
       </ion-back-button>
     </ion-buttons>
-    <ion-title style="text-align: center;">Recuperar Contraseña</ion-title>
+    <ion-title>Cambiar</ion-title>
     <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
-      <ion-icon name="key" size="large"></ion-icon>
+      <ion-icon name="pencil" color="medium"size="large"></ion-icon>
     </ion-thumbnail>
   </ion-toolbar>
 </ion-header>
 
 
+
 <ion-content class="bg">
   <div>
     <form class="custom-form" method="post">
-      <ion-label>Cambiar Contraseña</ion-label>
+      <ion-label>Ingrese datos</ion-label>
       <input
-        type="text"
+        type="password"
         [(ngModel)]="usuarioFormCambiar.password"
         name="password"
         placeholder="Contraseña Actual"

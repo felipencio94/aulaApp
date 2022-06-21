@@ -25,15 +25,15 @@ export class CambiarPage implements OnInit {
     public router: Router,
     private apiService: ApiService,
     public toastController: ToastController,
-    ) { }
+    ) { 
+      this.apiService.recuperarDatosUsuario(this.apiService.usuarioAuth).subscribe(data=>{
+        this.lista = [this.apiService.usuarioLogueado];
+        }
+        );
+    }
 
   ngOnInit() {
-    this.apiService.recuperarDatosUsuario(this.apiService.usuarioAuth).subscribe(data=>{
-      this.lista = [this.apiService.usuarioLogueado];
-      console.log(this.apiService.usuarioLogueado.runUsuario);
-      
-      }
-      );
+    
       
       
   }
@@ -49,7 +49,7 @@ export class CambiarPage implements OnInit {
     // console.log(contrasena);
     
     if(contrasena === '' || nuevaContrasena === '' || confNuevaContrasena === ''){
-      this.errorGenerico('Error','Debe completar todos los campos');
+      this.presentarAlerta('Error','Debe completar todos los campos');
     } else{
       if(contrasena ==  this.apiService.usuarioLogueado.passwordUsuario){
         console.log('Usuario validado');
@@ -100,20 +100,21 @@ export class CambiarPage implements OnInit {
     const toast = await this.toastController.create({
       header: header,
       message: message,
-      position: 'middle',
+      position: 'top',
       duration: 3500,
       icon: 'information-circle',
       cssClass: 'errorGenerico',//terminar estilo
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
     toast.present();
   }
   
   async confirmacion(header, message) {
     const toast = await this.toastController.create({
-      position: 'middle',
+      position: 'top',
       header: header,
       message: message,
+      icon:'checkmark',
       duration: 1500
     });
     toast.present();
@@ -125,7 +126,7 @@ export class CambiarPage implements OnInit {
       header: header,
       message: message,
       icon: 'information-circle',
-      position: 'middle',
+      position: 'top',
       buttons: [
        {
           text: 'Aceptar',
@@ -141,6 +142,7 @@ export class CambiarPage implements OnInit {
     const { role } = await toast.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
 
 
 

@@ -13,32 +13,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines ="full" class="ion-margin" >
+  <ion-list lines="full" class="ion-margin">
     <ion-item *ngFor="let x of listaAsistencia">
-      <ion-card-header>
-        <ion-card-title >{{x.NOMBREALUMNO}}</ion-card-title>   
-      </ion-card-header>             
-      <!-- <div>  -->
-        <!-- <div float-right class="my-checkbox" > -->
-          <!-- <ion-item > -->
-            <ion-input type="checkbox" slot="end">
-              <ion-label class="ion-margin">Presente</ion-label>
-              <ion-checkbox  slot="end" [(ngModel)]="x.PRESENTE" (ionChange)="asistenciaAlumnoCambiada()"></ion-checkbox>
-            </ion-input>
-          <!-- </ion-item> -->
-        <!-- </div>    -->
-      <!-- </div> -->
+      <ion-item>
+        <ion-label >{{x.NOMBREALUMNO}}</ion-label>              
+        <ion-input type="checkbox" slot="end">
+          <ion-label class="ion-margin">Presente</ion-label>
+          <ion-checkbox [(ngModel)]="x.PRESENTE" (ionChange)="asistenciaAlumnoCambiada()"></ion-checkbox>
+        </ion-input>
+      </ion-item>
     </ion-item>
   </ion-list>
+    
+    
+    <ion-button expand="block" strong="true" id="modal-alumnos" class="ion-margin" color="secondary" (click)="confirmarAsistencia()">Confirmar Asistencia</ion-button>
+    
 
-  <ion-button expand="block" strong="true" id="modal-alumnos" class="ion-margin" (click)="confirmarAsistencia()">Confirmar Asistencia</ion-button>
-
-  <!-- <ion-list lines="full">
-    <ion-item *ngFor="let alumno of listaAlumnos">
-      <ion-card-header>
-        <ion-card-title> rut: {{alumno.RUNALUMNO}}</ion-card-title>
-        <ion-card-subtitle>id curso: {{alumno.ID_CURSO}}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-item>
-  </ion-list> -->
 </ion-content>

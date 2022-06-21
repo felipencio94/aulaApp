@@ -9,7 +9,9 @@ import { Persona } from '../interface/persona';
 import { Nivel } from '../interface/nivel';
 import { Curso } from '../interface/curso';
 import { Alumno } from '../interface/alumno';
+import { Asistencia } from '../interface/asistencia';
 import { Asignatura } from '../interface/asignatura';
+import { Observacion } from '../interface/observacion';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,10 @@ export class ApiService {
     return this.http.get<Usuario[]>(this.rutaBase + '/usuario');
   }
 
+  // modificarContrasena(usuario, contrasena) {
+  //   return this.http.put(this.rutaBase, { nombreFuncion: "UsuarioModificarContrasena", parametros: { usuario: usuario, contrasena: contrasena } });
+  // }
+
   cambiarClave(run, nuevaContrasena){
     // console.log(run);
     // console.log(nuevaContrasena);
@@ -50,10 +56,17 @@ export class ApiService {
   obtenerAlumnos(idCurso){
     return this.http.get<Alumno[]>(this.rutaBase + '/cursoAlumno?idCurso=' + idCurso);
   }
-
   obtenerAsignatura(idCurso){
     return this.http.get<Asignatura[]>(this.rutaBase + '/asignatura?idCurso=' + idCurso);
   }
+  obtenerAsistencia(idCurso, fechaAsistencia){
+    return this.http.get<Asistencia[]>(this.rutaBase + '/obtenerAsistencia?idCurso=' + idCurso + '&fechaAsistencia='+ fechaAsistencia);
+  }
+
+  obtenerObservacion(run){
+    return this.http.get<Observacion[]>(this.rutaBase + '/obtenerObservacion?run=' + run);
+  }
+
 
   validarLogin(usuario, contrasena) {
     return this.http.get<Respuesta>(this.rutaBase + '/loginusuario?run=' + usuario + '&pass=' + contrasena)
@@ -66,19 +79,23 @@ export class ApiService {
       return auth;
      }));
     }
+    
+    // soloUsuario(run){
+    //   return this.http.post<Usuario>(this.rutaBase + '/soloUsuario',{run:run})
+      
+    // }
 
     recuperarDatosUsuario(run) {
       return this.http.get<Respuesta>(this.rutaBase + '/datosUsuario?run=' + run)
         .pipe( map(auth => {
           
+          console.log(auth);
           if(auth != null){
-            // console.log(auth.result);
             // debugger;
             try{
-
               this.usuarioLogueado = {
                 runCompleto:auth.result[0][0],
-                nombreCompleto:auth.result[0] [1],
+                nombreCompleto:auth.result[0][1],
                 fecNacimiento: auth.result[0][2] ,
                 sexo:auth.result[0][3],
                 pueblo: auth.result[0][4],
@@ -89,7 +106,9 @@ export class ApiService {
                 estadoUsuario: auth.result[0][9],
                 passwordUsuario: auth.result[0][10],
                 runUsuario: auth.result[0][11]
+                
               }
+              // console.log(this.usuarioLogueado);
             }catch{
               console.log('error');
               this.usuarioLogueado = {runCompleto:''
@@ -110,6 +129,18 @@ export class ApiService {
 
       validarCodigo(codigoOtp, mail, run){
         return this.http.post(this.rutaBase+ '/validarCodigo',{codigoOtp, mail, run})
+      }
+      
+      confirmarAsistencia(fecha_asistencia, estado, usr_creacion, run, id_curso, dias_bloqueo){
+        return this.http.post(this.rutaBase+ '/confirmarAsistencia',{fecha_asistencia, estado, usr_creacion, run, id_curso, dias_bloqueo})
+      }
+
+      confirmarLeccionario(descripcion, fecha_asistencia, usr_creacion, id_asignatura){
+        return this.http.post(this.rutaBase + '/confirmarLeccionario', {descripcion, fecha_asistencia, usr_creacion, id_asignatura})
+      }
+
+      confirmarObservacion(tipo, desc_obs, usr_creacion, run, id_curso){
+        return this.http.post(this.rutaBase + '/confirmarObservacion', {tipo, desc_obs, usr_creacion, run, id_curso})
       }
 
 }

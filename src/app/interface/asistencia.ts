@@ -12,7 +12,6 @@ export interface Asistencia {
     EDAD?: number;
     PUEBLOORIGINARIO?: string;
     
-    
     ID_ASISTENCIA?: number;
     FECHA_CREACION?: string;
     FECHA_ASISTENCIA?: string;
@@ -20,5 +19,6 @@ export interface Asistencia {
     USR_CREACION?: string;
     RUN?: number;
     ID_CURSO?: number;
-    PRESENTE_NUM?:Number;
+    PRESENTE_NUM?: number;
+
 }

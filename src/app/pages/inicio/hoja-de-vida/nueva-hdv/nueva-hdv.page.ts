@@ -30,7 +30,7 @@ export class NuevaHdvPage implements OnInit {
   txt_observacion: string = '';
   usr_creacion:string;
   mostrarPickerFecha = false;
-  dateValue = format(new Date(),  'yyyy-MM-dd') + 'T09:00:00.000Z';
+  dateValue = format(new Date(),  'yyyy-MM-dd');
   formato = '';
   nivel:Nivel;
   lista: [{}]; 
@@ -60,7 +60,7 @@ export class NuevaHdvPage implements OnInit {
   }
 
   setHoy() {
-    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd')), ' dd-MM-yyyy');
+    this.formato = format(parseISO(format(new Date(),  'yyyy-MM-dd')), 'dd-MM-yyyy');
   }
   fechaCambiada(value) {
     console.log(value);
@@ -209,21 +209,12 @@ export class NuevaHdvPage implements OnInit {
   }
 
   confirmarObservacion() {
+    this.box_alumnoFinalString;
     this.txt_observacion;
-    for(let atrib of this.listaObservacion){
-      atrib.TIPO = this.box_alumnoFinalString; 
-      this.box_alumnoFinalString = atrib.TIPO;
-      atrib.DESC_OBS = this.txt_observacion;
-      this.txt_observacion = atrib.DESC_OBS;
-      atrib.FECHA_INS = this.formato;
-      this.formato = atrib.FECHA_INS;
-      atrib.USR_CREACION = this.usr_creacion;
-      this.usr_creacion = atrib.USR_CREACION;
-      atrib.RUN = this.mdl_alumno;
-      this.mdl_alumno = atrib.RUN;
-      atrib.ID_CURSO = this.id_curso;
-      this.id_curso = atrib.ID_CURSO;
-    }
+    this.formato;
+    this.usr_creacion;
+    this.mdl_alumno;
+    this.id_curso;
     //id observacion
     console.log('tipo de observacion: ' + this.box_alumnoFinalString);//tipo de observacion   
     console.log('desc. observacion: ' + this.txt_observacion);//desc. observacion
@@ -233,15 +224,20 @@ export class NuevaHdvPage implements OnInit {
     console.log('id curso: ' + this.id_curso);//id curso
     console.log(this.listaObservacion);
     
-    
-    console.log('confirma cambios')
+    this.apiService.confirmarObservacion(this.box_alumnoFinalString, this.txt_observacion, this.usr_creacion, this.mdl_alumno, this.id_curso).subscribe(data=>{
+      console.log(data);
+      console.log('confirma cambios')
     this.box_alumnoFinalString= '';
     this.txt_observacion= '';
     this.formato= '';
     this.mdl_alumno= '';
     this.id_curso= 0;
-    this.router.navigate(['inicio']);
+    this.router.navigate(['inicio/hoja-de-vida']);
     this.presentToast('Exito! Observación registrada correctamente.');
+      
+    })
+
+    
   }
   
  

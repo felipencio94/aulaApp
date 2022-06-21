@@ -1,4 +1,4 @@
-  /*
+/*
  * App Global CSS
  * ----------------------------------------------------------------------------
  * Put style rules here that you want to apply globally. These styles are for
@@ -37,15 +37,18 @@ h1 {
   padding: 0;
 }
 
+.inputCss {
+  color: rgba(50, 50, 50, 0.5);
+}
 
   #fondo {
     background-image: url(assets/image/colegio.png)!important ;
   }
 
-  // ion-button{
-  //   background-color: orange!important;
-  //   color:black;
-  // }
+  ion-button{
+    // background-color: orange!important;
+    color:rgb(0, 0, 0);
+  }
   
   .fill:hover,
   .fill:focus {

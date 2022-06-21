@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CambiarPageRoutingModule } from './cambiar-routing.module';
+import { IngresarNotasPageRoutingModule } from './ingresar-notas-routing.module';
 
-import { CambiarPage } from './cambiar.page';
-
+import { IngresarNotasPage } from './ingresar-notas.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CambiarPageRoutingModule
+    IngresarNotasPageRoutingModule
   ],
-  declarations: [CambiarPage]
+  declarations: [IngresarNotasPage]
 })
-export class CambiarPageModule {}
+export class IngresarNotasPageModule {}

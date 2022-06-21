@@ -5,8 +5,7 @@ import { ApiService } from 'src/app/sevices/api.service';
 import { AutenticacionService } from 'src/app/sevices/autenticacion.service';
 import { Usuario } from 'src/app/models/usuario.models';
 import { Nivel } from 'src/app/interface/nivel';
-import { Alumno } from 'src/app/interface/alumno';
-import { element } from 'protractor';
+
 
 
 @Component({
@@ -15,14 +14,14 @@ import { element } from 'protractor';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  
+
   usuarioForm = {
     run: '',
     password: ''
   }
 
-  //listaUsuarios: [Usuario]
-  
+  listaUsuarios: [Usuario]
+  listaNiveles: [Nivel]
   public mostrarInfo: boolean = false;
 
   constructor(public alertController: AlertController,
@@ -30,17 +29,11 @@ export class LoginPage implements OnInit {
     public router: Router,
     public apiService: ApiService,
     public toastController: ToastController) {
-            
+
     }
 
   ngOnInit() {
-    // this.limpiarFormulario();
   }
-
-  // limpiarFormulario(){
-  //   this.usuarioForm.password = "";
-  //   this.usuarioForm.run = "";
-  // }
 
   mostrarInfoButton(){
     
@@ -48,44 +41,31 @@ export class LoginPage implements OnInit {
   }
 
 
-       
   validarLogin(){
     let run= this.usuarioForm.run;
     let contrasena = btoa(this.usuarioForm.password);
     this.apiService.validarLogin(run, contrasena).subscribe( data =>{
       if(this.usuarioForm.run === '' || this.usuarioForm.password === ''){
 
-      this.presentToastWithOptions('Atención!','Los campos no pueden estar vacíos');
+      this.presentarAlertaOpciones('Atención!','Los campos no pueden estar vacíos');
    
     }else if(data.result ==='LOGIN NOK'){
-      this.presentToastWithOptions('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
+      this.presentarAlertaOpciones('Credenciales incorrectas','Usuario o clave incorrectos, por favor reintente.');
       
       }else{
  
-        this.presentToast('Bienvenido!');
+        this.presentarAlerta('Bienvenido!');
         this.router.navigate(['inicio']);
+        this.usuarioForm.run ="";
+        this.usuarioForm.password ="";
         
       }
     });
 
-  }  
-
+  } 
   recuperarContrasena(){
     this.router.navigate(['recuperar']);
   }
-  
-  async presentarAlerta() {
-  const alert = await this.alertController.create({
-    header: 'Login Incorrecto',
-    message: 'Las credenciales no son correctas, favor intentarlo nuevamente',
-    buttons: ['Aceptar']
-  });
-
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-  console.log('onDidDismiss resolved with role', role);
-}
 
 
   async errorGenerico(tipo, mensaje) {  //Usar este mensaje para evitar crear una por cada tipo.
@@ -98,8 +78,7 @@ export class LoginPage implements OnInit {
 
 
 
-
-  async presentToast(message) {
+  async presentarAlerta(message) {
     const toast = await this.toastController.create({
       position: 'bottom',
       message: message,
@@ -108,11 +87,12 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
-  async presentToastWithOptions(header, message) {
+  async presentarAlertaOpciones(header, message) {
     const toast = await this.toastController.create({
       message: message,
       icon: 'information-circle',
       position: 'top',
+      duration: 3500,
       buttons: [
        {
           text: 'Aceptar',

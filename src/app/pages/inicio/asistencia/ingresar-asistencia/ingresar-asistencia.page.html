@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/" color="primary" mode="md">
+
+      </ion-back-button>
+    </ion-buttons>
+    <ion-thumbnail slot="end" style="padding-top: 8px; padding-right: 8px;">
+      <ion-icon name="checkmark" size="large"></ion-icon>
+    </ion-thumbnail>
+    <ion-title style="text-align: center;">Registro de asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item id="open-modal" class="ion-margin">
+      <ion-icon icon="calendar-outline" slot ="start"></ion-icon>
+      <ion-label>Fecha</ion-label>
+      <ion-text slot="end">{{formato}}</ion-text>
+    </ion-item>
+    <ion-modal trigger="open-modal" class="ion-modal">
+      <ng-template>
+        <ion-content class="ion-content-fecha">
+          <ion-datetime #datetime presentation="datetime" [value]="dateValue" size="cover"(ionChange)="fechaCambiada(datetime.value)"(ionCancel)="mostrarPickerFecha = false;">
+            <ion-buttons slot="buttons">
+              <ion-button (click)="cerrar()" color="danger">Cerrar</ion-button>
+              <ion-button (click)="seleccionar()">Seleccionar</ion-button>
+            </ion-buttons>
+          </ion-datetime>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    
+    <ion-item class="ion-margin" >
+      <ion-label>Nivel</ion-label>
+      <ion-select name ="select_nivel" [(ngModel)]="mdl_nivel" (ionChange)="onChange(obtenerCursoApi())" >
+        <ion-select-option *ngFor="let nivel of listaNivel" [value]="nivel.ID_NIVEL">{{nivel.DESCRIPCION}} </ion-select-option>
+      </ion-select>
+
+      
+    </ion-item>
+
+    <ion-item class="ion-margin" *ngIf="mostrarCurso">
+      <ion-label>Curso</ion-label>
+      <ion-select name ="select_curso"  [(ngModel)]="mdl_curso" >
+        <ion-select-option  *ngFor="let curso of listaCursos" [value]="curso.ID_CURSO">{{curso.COMPUESTO}}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+
+    <!--Boton de fecha con modal-->
+
+
+    <ion-button expand="block" shape="round" strong="true" class="ion-margin" color ="tertiary" (click)="obtenerAlumnosApi()">Ir</ion-button>
+
+
+  </ion-card>
+</ion-content>
